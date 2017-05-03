@@ -1,0 +1,4 @@
+.idea
+fish/.config/fish/fish_history
+fish/.config/fish/fishd.*
+tmux/.tmux/plugins/*

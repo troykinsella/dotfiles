@@ -1,0 +1,7 @@
+[push]
+	default = simple
+[color]
+	ui = true
+[url "git@github.com:"]
+	pushInsteadOf = https://github.com/
+	pushInsteadOf = git://github.com/

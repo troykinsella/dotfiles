@@ -5,13 +5,18 @@ set -x EDITOR emacs
 set -x GIT_EDITOR $EDITOR
 set -x PAGER less
 set -x GOPATH $HOME/devel/go
+set -x GOROOT /usr/local/go
+
+if test -d $GOROOT
+  set -x PATH $GOROOT/bin $PATH
+end
 
 if test -d $GOPATH/bin
   set -x PATH $GOPATH/bin $PATH
 end
 
 if test -d $HOME/bin
-  set -gx PATH $HOME/bin $PATH
+  set -x PATH $HOME/bin $PATH
 end
 
 alias tmux "tmux -2"

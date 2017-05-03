@@ -2,12 +2,8 @@
 
 set -ex
 
+test "$(id -u)" = "0" && { echo "do not run as root"; exit 1; }
 cd $(dirname $0)
-
-if [ "$(id -u)" = "0" ]; then
-  echo "do not run as root"
-  exit 1
-fi
 
 install() {
   sudo apt install -y $*
@@ -26,6 +22,15 @@ sudo chsh -s /usr/bin/fish $(whoami)
 # editor
 install emacs-nox
 stow emacs
+sudo update-alternatives --install /usr/bin/editor editor /usr/bin/emacs 60
+sudo update-alternatives --set editor /usr/bin/emacs
+
+# python
+install python-dev python-pip python3-dev python3-pip
+
+# ruby
+install ruby
+stow gem
 
 # git
 install git
@@ -35,8 +40,8 @@ stow git
 install tmux
 stow tmux
 
-# misc
-install htop curl jq xclip
-
 # window manager
 stow xfce4
+
+# misc
+install htop curl jq xclip

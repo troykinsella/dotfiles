@@ -2,6 +2,8 @@
 
 set -ex
 
+cd $(dirname $0)
+
 if [ "$(id -u)" = "0" ]; then
   echo "do not run as root"
   exit 1

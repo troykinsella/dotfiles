@@ -4,6 +4,9 @@ set -x VISUAL emacs
 set -x EDITOR emacs
 set -x GIT_EDITOR $EDITOR
 set -x PAGER less
+
+# Go
+
 set -x GOPATH $HOME/devel/go
 set -x GOROOT /usr/local/go
 
@@ -15,9 +18,19 @@ if test -d $GOPATH/bin
   set -x PATH $GOPATH/bin $PATH
 end
 
+# Node
+
+if test -d $HOME/.n/bin
+  set -x PATH $HOME/.n/bin $PATH
+end
+
+# User bin
+
 if test -d $HOME/bin
   set -x PATH $HOME/bin $PATH
 end
+
+# Tmux
 
 alias tmux "tmux -2"
 

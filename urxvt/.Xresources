@@ -1,0 +1,9 @@
+URxvt.geometry: 120x40
+URxvt.scrollBar: false
+URxvt.font: xft:DejaVu Sans Mono:size=10
+URxvt.letterSpace: -1
+
+URxvt.perl-ext-common: default,matcher
+
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher.button: 1

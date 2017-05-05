@@ -19,6 +19,17 @@ install fish
 stow fish
 sudo chsh -s /usr/bin/fish $(whoami)
 
+# window manager
+stow xfce4
+
+# terminal
+install rxvt-unicode-256color
+stow urxvt
+
+# tmux
+install tmux
+stow tmux
+
 # editor
 install emacs-nox
 stow emacs
@@ -35,13 +46,6 @@ stow gem
 # git
 install git
 stow git
-
-# tmux
-install tmux
-stow tmux
-
-# window manager
-stow xfce4
 
 # misc
 install htop curl jq xclip

@@ -20,8 +20,18 @@ end
 
 # Node
 
-if test -d $HOME/.n/bin
-  set -x PATH $HOME/.n/bin $PATH
+set -x NODE_HOME $HOME/.n
+
+if test -d $NODE_HOME/bin
+  set -x PATH $NODE_HOME/bin $PATH
+end
+
+# Java
+
+set -x JAVA_HOME /usr/local/java
+
+if test -d $JAVA_HOME/bin
+  set -x PATH $JAVA_HOME/bin $PATH
 end
 
 # User bin

@@ -43,6 +43,15 @@ install python-dev python-pip python3-dev python3-pip
 install ruby
 stow gem
 
+# node
+export N_PREFIX=~/.n
+if [ ! -d $N_PREFIX ]; then
+  mkdir -p ~/tmp
+  curl -SL https://git.io/n-install > ~/tmp/n-install
+  chmod +x ~/tmp/n-install
+  ~/tmp/n-install -y -n stable
+fi
+
 # git
 install git
 stow git

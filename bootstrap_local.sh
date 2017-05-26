@@ -1,20 +1,21 @@
 #!/usr/bin/env bash
 
+set -ex
+
 GO_VERSION=1.8.2
 GO_PKG_SUM=5477d6c9a4f96fa120847fafa88319d7b56b5d5068e41c3587eebe248b939be7
-#GO_PKG_SUM=a579ab19d5237e263254f1eac5352efcf1d70b9dacadb6d6bb12b0911ede8994
 
 JAVA_PKG=jdk-8u131-linux-x64.tar.gz
 JAVA_PKG_URL=http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/$JAVA_PKG
 JAVA_PKG_SUM=62b215bdfb48bace523723cdbb2157c665e6a25429c73828a32f00e587301236
 JAVA_INSTALL=jdk1.8.0_131
 
+BACON_VERSION=0.1.1
+
 LOCAL_PATH=/usr/local
 
-set -ex
-
 test "$(id -u)" = "0" || { echo "must run as root"; exit 1; }
-cd $(dirname $0)
+cd $LOCAL_PATH
 
 check_sum() {
   local package_path=$1
@@ -35,8 +36,6 @@ needs_fetch() {
 
   return 1
 }
-
-# Go
 
 install_go() {
   local go_pkg=go${GO_VERSION}.linux-amd64.tar.gz
@@ -72,8 +71,15 @@ install_java() {
   java/bin/java -version || exit 1
 }
 
-# Main
+install_bacon() {
+  if [ ! -x bin/bacon ] || ! bin/bacon --version | grep $BACON_VERSION > /dev/null; then
+    killall bacon    
+    curl -SL https://github.com/troykinsella/bacon/releases/download/v${BACON_VERSION}/bacon_linux_amd64 > bin/bacon
+    chmod +x bin/bacon  
+  fi
+  bin/bacon --version || exit 1
+}
 
-cd $LOCAL_PATH
 install_go
 install_java
+install_bacon

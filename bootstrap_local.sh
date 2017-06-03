@@ -10,7 +10,7 @@ JAVA_PKG_URL=http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4
 JAVA_PKG_SUM=62b215bdfb48bace523723cdbb2157c665e6a25429c73828a32f00e587301236
 JAVA_INSTALL=jdk1.8.0_131
 
-BACON_VERSION=0.1.1
+BACON_VERSION=0.3.0
 
 LOCAL_PATH=/usr/local
 
@@ -35,6 +35,10 @@ needs_fetch() {
   check_sum $package_path $package_sum || return 0
 
   return 1
+}
+
+install_ansible() {
+  pip install ansible
 }
 
 install_go() {
@@ -72,14 +76,15 @@ install_java() {
 }
 
 install_bacon() {
-  if [ ! -x bin/bacon ] || ! bin/bacon --version | grep $BACON_VERSION > /dev/null; then
+  if [ ! -x bin/bacon ] || ! bin/bacon -v | grep $BACON_VERSION > /dev/null; then
     killall bacon    
     curl -SL https://github.com/troykinsella/bacon/releases/download/v${BACON_VERSION}/bacon_linux_amd64 > bin/bacon
     chmod +x bin/bacon  
   fi
-  bin/bacon --version || exit 1
+  bin/bacon -v || exit 1
 }
 
+install_ansible
 install_go
 install_java
 install_bacon

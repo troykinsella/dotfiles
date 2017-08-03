@@ -4,8 +4,8 @@ set -ex
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-GO_VERSION=1.8.2
-GO_PKG_SUM=5477d6c9a4f96fa120847fafa88319d7b56b5d5068e41c3587eebe248b939be7
+GO_VERSION=1.8.3
+GO_PKG_SUM=1862f4c3d3907e59b04a757cfda0ea7aa9ef39274af99a784f5be843c80c6772
 
 JAVA_PKG=jdk-8u131-linux-x64.tar.gz
 JAVA_PKG_URL=http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/$JAVA_PKG

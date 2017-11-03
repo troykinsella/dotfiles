@@ -14,6 +14,9 @@ JAVA_INSTALL=jdk1.8.0_131
 
 BACON_VERSION=latest
 
+PROTOC_VERSION=3.4.0
+PROTOC_PKG_SUM=e4b51de1b75813e62d6ecdde582efa798586e09b5beaebfb866ae7c9eaadace4
+
 LOCAL_PATH=/usr/local
 
 test "$(id -u)" = "0" || { echo "must run as root"; exit 1; }
@@ -84,7 +87,22 @@ install_bacon() {
   bin/bacon -v || exit 1
 }
 
+install_protoc() {
+  local protoc_pkg=protoc-$PROTOC_VERSION-linux-x86_64.zip
+
+  if needs_fetch $protoc_pkg $PROTOC_PKG_SUM; then
+    $DIR/github_fetch_release.sh google protobuf $PROTOC_VERSION $protoc_pkg > $protoc_pkg
+  fi
+
+  check_sum $protoc_pkg $PROTOC_PKG_SUM || exit 1
+  unzip -o $protoc_pkg
+  chmod +x bin/protoc
+  rm readme.txt
+  protoc --version || exit 1
+}
+
 install_ansible
 install_go
 install_java
 install_bacon
+install_protoc

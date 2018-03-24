@@ -64,6 +64,7 @@ readonly ENC_DIR=~/.encrypted
 readonly DEC_DIR=~/.decrypted
 readonly ENCFS_MOUNT=~/bin/mount-encfs
 readonly ENCFS_UMOUNT=~/bin/umount-encfs
+readonly ENCFS_PASSWD=~/bin/encfs-passwd
 
 install encfs
 mkdir -p ~/bin
@@ -84,5 +85,10 @@ cat <<EOF > $ENCFS_UMOUNT
 fusermount -u $DEC_DIR
 EOF
 
-chmod +x $ENCFS_MOUNT $ENCFS_UMOUNT
+cat <<EOF > $ENCFS_PASSWD
+#!/usr/bin/env bash
+encfsctl passwd $ENC_DIR
+EOF
+
+chmod +x $ENCFS_MOUNT $ENCFS_UMOUNT $ENCFS_PASSWD
 $ENCFS_MOUNT # run it

@@ -19,7 +19,7 @@ PROTOC_PKG_SUM=e4b51de1b75813e62d6ecdde582efa798586e09b5beaebfb866ae7c9eaadace4
 
 LOCAL_PATH=/usr/local
 
-test "$(id -u)" = "0" || { echo "must run as root"; exit 1; }
+test "$(id -u)" = "0" || { echo "must run as root" >&2; exit 1; }
 cd $LOCAL_PATH
 
 check_sum() {

@@ -4,8 +4,8 @@ set -ex
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-GO_VERSION=1.9.2
-GO_PKG_SUM=de874549d9a8d8d8062be05808509c09a88a248e77ec14eb77453530829ac02b
+GO_VERSION=1.10
+GO_PKG_SUM=b5a64335f1490277b585832d1f6c7f8c6c11206cba5cd3f771dcb87b98ad1a33
 
 JAVA_PKG=jdk-8u131-linux-x64.tar.gz
 JAVA_PKG_URL=http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/$JAVA_PKG
@@ -19,7 +19,7 @@ PROTOC_PKG_SUM=e4b51de1b75813e62d6ecdde582efa798586e09b5beaebfb866ae7c9eaadace4
 
 LOCAL_PATH=/usr/local
 
-test "$(id -u)" = "0" || { echo "must run as root"; exit 1; }
+test "$(id -u)" = "0" || { echo "must run as root" >&2; exit 1; }
 cd $LOCAL_PATH
 
 check_sum() {

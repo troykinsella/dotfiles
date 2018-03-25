@@ -52,6 +52,8 @@ if [ ! -d $N_PREFIX ]; then
   ~/tmp/n-install -y -n stable
 fi
 
+$N_PREFIX/bin/n latest
+
 # git
 install git
 stow git

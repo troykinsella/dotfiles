@@ -101,6 +101,12 @@ install_protoc() {
   protoc --version || exit 1
 }
 
+apt install -y \
+  curl \
+  jq \
+  python \
+  python-pip
+
 install_ansible
 install_go
 install_java

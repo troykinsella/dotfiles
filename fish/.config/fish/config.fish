@@ -21,6 +21,7 @@ end
 # Node
 
 set -x NODE_HOME $HOME/.n
+set -x N_PREFIX $NODE_HOME
 
 if test -d $NODE_HOME/bin
   set -x PATH $NODE_HOME/bin $PATH

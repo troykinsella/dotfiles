@@ -1,5 +1,5 @@
 
-all: apt bacon emacs encfs essential fish git golang java nodejs protoc python ruby terraform tmux xfce4
+all: apt bacon docker emacs encfs essential fish git golang java nodejs protoc python ruby terraform tmux xfce4
 
 ansible: python
 	sudo pip install ansible
@@ -9,6 +9,10 @@ apt:
 
 bacon: essential
 	sudo install/bacon/install.sh
+
+docker: essential
+	sudo apt install -y docker.io
+	sudo usermod -a -G docker $$(whoami)
 
 emacs: essential
 	sudo apt install -y emacs-nox

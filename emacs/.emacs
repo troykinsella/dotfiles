@@ -1,3 +1,29 @@
+; Packages
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/"))
+(package-initialize)
+
+(defun ensure-package-installed (&rest packages)
+  "Assure every package is installed, ask for installation if it’s not.
+   Return a list of installed packages or nil for every skipped package."
+  (mapcar
+   (lambda (package)
+     (unless (package-installed-p package)
+       (package-install package)))
+     packages)
+  )
+
+(when (not package-archive-contents)
+  (package-refresh-contents))
+
+(ensure-package-installed
+ 'fish-mode
+ 'go-mode
+)
+
 ; Hide menu bar
 (menu-bar-mode -1)
 
@@ -24,16 +50,13 @@
 (global-font-lock-mode 1)
 (setq font-lock-maximum-decoration t)
 
+; misc
 '(cursor-type . bar)
 (setq visible-bell t)
 
 (setq require-final-newline t)
 
-;; Show line-number in the mode line
-;(global-linum-mode t)
-;; Show column-number in the mode line
-;(column-number-mode 1)
-
+; custom
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -43,7 +66,8 @@
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
- '(custom-enabled-themes (quote (tsdh-dark))))
+ '(custom-enabled-themes (quote (tsdh-dark)))
+ '(package-selected-packages (quote (fish-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

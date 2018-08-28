@@ -35,6 +35,7 @@ fish: essential
 	sudo apt-get install -y fish
 	stow fish
 	sudo chsh -s /usr/bin/fish $$(whoami)
+	fisher z
 
 git: essential
 	sudo apt-get install -y git

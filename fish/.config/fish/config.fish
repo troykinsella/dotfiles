@@ -1,9 +1,28 @@
 function fish_greeting; end
 
+# Source
+
+source ~/.config/fish/functions/fisherman/fisher.fish
+
+# Env
+
 set -x VISUAL emacs
 set -x EDITOR emacs
 set -x GIT_EDITOR $EDITOR
 set -x PAGER less
+
+# Fish Git
+
+set __fish_git_prompt_showdirtystate 'yes'
+set __fish_git_prompt_showupstream 'auto'
+set __fish_git_prompt_color_branch green
+set __fish_git_prompt_color_upstream_ahead blue
+set __fish_git_prompt_color_upstream_behind red
+set __fish_git_prompt_char_dirtystate '*'
+set __fish_git_prompt_char_stagedstate '→'
+set __fish_git_prompt_char_upstream_equal ''
+set __fish_git_prompt_char_upstream_ahead '↑'
+set __fish_git_prompt_char_upstream_behind '↓'
 
 # Go
 

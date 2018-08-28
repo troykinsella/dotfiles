@@ -10,7 +10,7 @@ readonly ENCFS_PASSWD=~/bin/encfs-passwd
 
 test "$(id -u)" = "0" && { echo "do not run as root" >&2; exit 1; }
 
-sudo apt install -y encfs
+sudo apt-get install -y encfs
 mkdir -p ~/bin
 mkdir -p $ENC_DIR
 mkdir -p $DEC_DIR

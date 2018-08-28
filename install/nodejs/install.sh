@@ -3,13 +3,13 @@
 set -e
 
 cd
-N_PREFIX=~/.n
+export N_PREFIX=~/.n
 
 if [ ! -d $N_PREFIX ]; then
-  local n_install_path=~/tmp/n-install
+  N_INSTALL_PATH=~/tmp/n-install
   mkdir -p ~/tmp
-  curl -SL https://git.io/n-install > $n_install_path
-  chmod +x $n_install_path
-  $n_install_path -y -n stable
-  rm $n_install_path
+  curl -SL https://git.io/n-install > $N_INSTALL_PATH
+  chmod +x $N_INSTALL_PATH
+  $N_INSTALL_PATH -y -n stable
+  rm $N_INSTALL_PATH
 fi

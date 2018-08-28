@@ -1,21 +1,21 @@
 
-all: apt bacon docker emacs encfs essential fish git golang java nodejs protoc python ruby terraform tmux xfce4
+all: apt-get bacon docker emacs encfs essential fish git golang java nodejs protoc python ruby ssh terraform tmux xfce4
 
 ansible: python
 	sudo pip install ansible
 
-apt:
-	sudo apt update -y
+apt-get:
+	sudo apt-get update -y
 
 bacon: essential
 	sudo install/bacon/install.sh
 
 docker: essential
-	sudo apt install -y docker.io
+	sudo apt-get install -y docker.io
 	sudo usermod -a -G docker $$(whoami)
 
 emacs: essential
-	sudo apt install -y emacs-nox
+	sudo apt-get install -y emacs-nox
 	stow emacs
 	sudo update-alternatives --install /usr/bin/editor editor /usr/bin/emacs 60
 	sudo update-alternatives --set editor /usr/bin/emacs
@@ -23,8 +23,8 @@ emacs: essential
 encfs: essential
 	install/encfs/install.sh
 
-essential: apt
-	sudo apt install -y \
+essential: apt-get
+	sudo apt-get install -y \
 	  curl \
 	  htop \
 	  jq \
@@ -32,12 +32,12 @@ essential: apt
 	  xclip
 
 fish: essential
-	sudo apt install -y fish
+	sudo apt-get install -y fish
 	stow fish
 	sudo chsh -s /usr/bin/fish $$(whoami)
 
 git: essential
-	sudo apt install -y git
+	sudo apt-get install -y git
 	stow git
 
 golang: essential
@@ -53,7 +53,7 @@ protoc: essential
 	sudo install/protoc/install.sh
 
 python: essential
-	sudo apt install -y \
+	sudo apt-get install -y \
 	  python \
 	  python-dev \
 	  python-pip \
@@ -62,14 +62,17 @@ python: essential
 	  python3-pip
 
 ruby: essential
-	sudo apt install -y \
+	sudo apt-get install -y \
 	  ruby \
 	  ruby-dev
 	stow gem
 
 tmux: essential
-	sudo apt install -y tmux
+	sudo apt-get install -y tmux
 	stow tmux
+
+ssh:
+	sudo apt-get install -y openssh-server
 
 terraform: essential
 	sudo install/terraform/install.sh

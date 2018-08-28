@@ -1,4 +1,4 @@
-set --erase fish_greeting
+function fish_greeting; end
 
 set -x VISUAL emacs
 set -x EDITOR emacs

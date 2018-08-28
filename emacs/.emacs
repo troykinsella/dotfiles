@@ -1,3 +1,6 @@
+; Hide menu bar
+(menu-bar-mode -1)
+
 ; Packages
 (require 'package)
 (add-to-list 'package-archives
@@ -24,9 +27,6 @@
  'go-mode
 )
 
-; Hide menu bar
-(menu-bar-mode -1)
-
 ; Edit compressed files
 (auto-compression-mode t)
 
@@ -46,17 +46,19 @@
 ; yes -> y, no -> n
 (fset 'yes-or-no-p 'y-or-n-p)
 
-; syntax highlights
+; Syntax highlights
 (global-font-lock-mode 1)
 (setq font-lock-maximum-decoration t)
 
-; misc
+; Window keybindings
+(windmove-default-keybindings)
+
+; Misc
 '(cursor-type . bar)
 (setq visible-bell t)
-
 (setq require-final-newline t)
 
-; custom
+; Custom
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

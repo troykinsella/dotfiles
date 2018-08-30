@@ -1,0 +1,84 @@
+#!/usr/bin/env bash
+
+set -eux
+
+TARGET=${1:-all}
+
+# Funtions
+
+install() { # Lifted from vito/dotfiles
+    local name=$(basename $1)
+    if brew list | grep "\\<$name\\>"; then
+        brew outdated "$name" || brew install $*
+    else
+        brew install $*
+    fi
+}
+
+install_cask() {
+    for x in "$@"; do
+        if ! brew cask list | grep "\\<$x\\>"; then
+            brew cask install "$x"
+        fi
+    done
+}
+
+essential() {
+    which brew > /dev/null || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    brew tap caskroom/cask
+    install \
+	 htop \
+	 jq \
+	 stow
+}
+
+# Targets
+
+t_all() {
+    t_emacs
+    t_fish
+    t_git
+    t_java
+    t_ruby
+    t_vagrant
+    t_virtualbox
+}
+
+t_emacs() {
+    install emacs
+    stow emacs
+}
+
+t_fish() {
+    install fish
+    grep "$(which fish)" /etc/shells > /dev/null || sudo sh -c "echo $(which fish) >> /etc/shells"
+    finger $USER | grep "$(which fish)" > /dev/null || sudo chsh -s "$(which fish)" $(whoami)
+    stow fish
+}
+
+t_git() {
+    install git
+    stow git
+}
+
+t_java() {
+    install java8
+}
+
+t_ruby() {
+    install ruby
+    stow gem
+}
+
+t_vagrant() {
+    install_cask vagrant
+}
+
+t_virtualbox() {
+    install_cask virtualbox
+}
+
+# Main
+
+essential
+test "$TARGET" != "essential" && t_$TARGET

@@ -40,6 +40,8 @@ t_all() {
     t_tmux
     t_terraform
     t_urxvt
+    t_vagrant
+    t_virtualbox
     t_xfce4
 }
 
@@ -132,6 +134,14 @@ t_urxvt() {
     sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/urxvt 10
     sudo update-alternatives --set x-terminal-emulator /usr/bin/urxvt
     xrdb ~/.Xresources
+}
+
+t_vagrant() {
+    install vagrant
+}
+
+t_virtualbox() {
+    install virtualbox
 }
 
 t_xfce4() {

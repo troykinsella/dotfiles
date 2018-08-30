@@ -70,11 +70,11 @@ end
 
 alias tmux "tmux -2"
 
-# automatically run tmux when in st
-#if test $TERM = "xterm-256color" -a -z "$ITERM_PROFILE"
-#  if which tmux >/dev/null; and status --is-interactive
-#    if test -z (echo $TMUX)
-#      exec tmux
-#    end
-#  end
-#end
+# Automatically run tmux when interactive
+if test $TERM = "xterm-256color" -a -z "$ITERM_PROFILE"
+  if which tmux >/dev/null; and status --is-interactive
+    if test -z (echo $TMUX)
+      exec tmux
+    end
+  end
+end

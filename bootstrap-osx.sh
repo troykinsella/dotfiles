@@ -35,13 +35,27 @@ essential() {
 # Targets
 
 t_all() {
+    t_chrome
+    t_docker
     t_emacs
     t_fish
     t_git
     t_java
     t_ruby
+    t_slack
     t_vagrant
     t_virtualbox
+}
+
+t_chrome() {
+    install_cask google-chrome
+}
+
+t_docker() {
+    install_cask docker
+    install \
+        docker-compose \
+        docker-machine
 }
 
 t_emacs() {
@@ -61,6 +75,10 @@ t_git() {
     stow git
 }
 
+t_iterm2() {
+     install_cask iterm2
+}
+
 t_java() {
     install java8
 }
@@ -68,6 +86,10 @@ t_java() {
 t_ruby() {
     install ruby
     stow gem
+}
+
+t_slack() {
+    install_cask slack
 }
 
 t_vagrant() {

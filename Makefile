@@ -1,5 +1,5 @@
 
-all: apt-get bacon docker emacs encfs essential fish git golang java nodejs protoc python ruby ssh terraform tmux xfce4
+all: apt-get bacon docker emacs encfs essential fish git golang java nodejs protoc python ruby ssh terraform tmux urxvt xfce4
 
 ansible: python
 	sudo pip install ansible
@@ -35,7 +35,6 @@ fish: essential
 	sudo apt-get install -y fish
 	stow fish
 	sudo chsh -s /usr/bin/fish $$(whoami)
-	fisher z
 
 git: essential
 	sudo apt-get install -y git
@@ -68,15 +67,22 @@ ruby: essential
 	  ruby-dev
 	stow gem
 
+ssh:
+	sudo apt-get install -y openssh-server
+
 tmux: essential
 	sudo apt-get install -y tmux
 	stow tmux
 
-ssh:
-	sudo apt-get install -y openssh-server
-
 terraform: essential
 	sudo install/terraform/install.sh
+
+urxvt: essential
+	sudo apt-get install -y rxvt
+	stow urxvt
+	sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/urxvt 10
+	sudo update-alternatives --set x-terminal-emulator /usr/bin/urxvt
+	xrdb ~/.Xresources
 
 xfce4: essential
 	stow xfce4

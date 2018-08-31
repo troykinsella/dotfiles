@@ -35,16 +35,23 @@ essential() {
 # Targets
 
 t_all() {
+    t_ansible
     t_chrome
     t_docker
     t_emacs
     t_fish
     t_git
     t_java
+    t_python
     t_ruby
     t_slack
     t_vagrant
     t_virtualbox
+}
+
+t_ansible() {
+    t_python
+    sudo pip install ansible
 }
 
 t_chrome() {
@@ -81,6 +88,14 @@ t_iterm2() {
 
 t_java() {
     install java8
+}
+
+t_python() {
+    install \
+        python@2 \
+        python@3
+    pip install --upgrade pip setuptools wheel
+    pip3 install --upgrade pip setuptools wheel
 }
 
 t_ruby() {

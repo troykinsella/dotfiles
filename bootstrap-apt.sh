@@ -113,6 +113,7 @@ t_ruby() {
 	ruby \
 	ruby-dev
     stow gem
+    gem install serverspec
 }
 
 t_ssh() {

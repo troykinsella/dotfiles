@@ -107,7 +107,7 @@ t_ruby() {
     # installed in essential
     stow gem
 
-    gem install serverspec
+    sudo gem install serverspec
 }
 
 t_slack() {

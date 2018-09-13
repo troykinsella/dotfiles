@@ -24,12 +24,18 @@ install_cask() {
 }
 
 essential() {
+    install ruby
+    
     which brew > /dev/null || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     brew tap caskroom/cask
+
     install \
-	 htop \
-	 jq \
-	 stow
+        coreutils \
+	htop \
+	jq \
+	stow
+
+   # TODO link gsha256sum, etc. in loop
 }
 
 # Targets
@@ -43,7 +49,6 @@ t_all() {
     t_git
     t_java
     t_python
-    t_ruby
     t_slack
     t_vagrant
     t_virtualbox
@@ -99,8 +104,10 @@ t_python() {
 }
 
 t_ruby() {
-    install ruby
+    # installed in essential
     stow gem
+
+    sudo gem install serverspec
 }
 
 t_slack() {

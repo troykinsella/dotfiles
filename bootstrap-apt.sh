@@ -24,6 +24,7 @@ essential() {
 
 t_all() {
     t_ansible
+    t_awscli
     t_bacon
     t_docker
     t_emacs
@@ -47,7 +48,12 @@ t_all() {
 
 t_ansible() {
     t_python
-    sudo pip install ansible
+    sudo -H pip install --upgrade ansible
+}
+
+t_awscli() {
+    t_python
+    sudo -H pip3 install --upgrade awscli
 }
 
 t_bacon() {
@@ -106,6 +112,9 @@ t_python() {
 	 python3 \
 	 python3-dev \
 	 python3-pip
+
+    sudo -H pip install --upgrade pip setuptools wheel
+    sudo -H pip3 install --upgrade pip setuptools wheel
 }
 
 t_ruby() {

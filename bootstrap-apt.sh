@@ -81,6 +81,10 @@ t_fish() {
     install fish
     stow fish
     sudo chsh -s /usr/bin/fish $(whoami)
+
+    # OSX compatibility for shared IntelliJ IDEA preferences
+    # in which /usr/bin/env can't be used. Pff.
+    sudo ln -s /usr/bin/fish /usr/local/bin/fish
 }
 
 t_git() {

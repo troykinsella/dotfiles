@@ -29,7 +29,10 @@ set __fish_git_prompt_char_upstream_behind '↓'
 set -x GOPATH $HOME/devel/go
 set -x GOROOT /usr/local/go
 
-if test -d $GOROOT
+if test -d $GOPATH/bin
+  set -x PATH $GOPATH/bin $PATH
+end
+if test -d $GOROOT/bin
   set -x PATH $GOROOT/bin $PATH
 end
 

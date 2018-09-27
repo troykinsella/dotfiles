@@ -1,3 +1,17 @@
 .idea
 fish/.config/fish/fish_history
 fish/.config/fish/fishd.*
+fish/.config/fish/fishfile
+
+# fisher
+fish/.config/fish/completions/fisher.fish
+
+# z plugin (installed with fisher)
+fish/.config/fish/functions/__z.fish
+fish/.config/fish/functions/__z_add.fish
+fish/.config/fish/functions/__z_clean.fish
+fish/.config/fish/functions/__z_complete.fish
+fish/.config/fish/functions/z.awk
+fish/.config/fish/functions/zadd.awk
+fish/.config/fish/functions/zclean.awk
+fish/.config/fish/conf.d/z.fish

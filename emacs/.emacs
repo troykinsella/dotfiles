@@ -25,6 +25,7 @@
 (ensure-package-installed
  'fish-mode
  'go-mode
+ 'yaml-mode
 )
 
 ; Edit compressed files

@@ -23,6 +23,7 @@
   (package-refresh-contents))
 
 (ensure-package-installed
+ 'dockerfile-mode
  'fish-mode
  'go-mode
  'yaml-mode

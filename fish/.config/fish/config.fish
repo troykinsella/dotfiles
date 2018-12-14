@@ -2,7 +2,9 @@ function fish_greeting; end
 
 # Source
 
-source ~/.config/fish/functions/fisherman/fisher.fish
+if test -f ~/.config/fish/functions/fisherman/fisher.fish
+  source ~/.config/fish/functions/fisherman/fisher.fish
+end
 
 # Env
 
@@ -10,6 +12,10 @@ set -x VISUAL emacs
 set -x EDITOR emacs
 set -x GIT_EDITOR $EDITOR
 set -x PAGER less
+
+# Snap
+
+set -x PATH $PATH /snap/bin
 
 # Fish Git
 

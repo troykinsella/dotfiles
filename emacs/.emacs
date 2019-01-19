@@ -26,6 +26,7 @@
  'dockerfile-mode
  'fish-mode
  'go-mode
+ 'telephone-line
  'yaml-mode
 )
 
@@ -59,6 +60,16 @@
 '(cursor-type . bar)
 (setq visible-bell t)
 (setq require-final-newline t)
+
+; Telephone line
+
+(require 'telephone-line)
+(setq telephone-line-primary-right-separator 'telephone-line-abs-left
+      telephone-line-secondary-right-separator 'telephone-line-abs-hollow-left)
+
+(setq telephone-line-height 24)
+
+(telephone-line-mode 1)
 
 ; Custom
 (custom-set-variables

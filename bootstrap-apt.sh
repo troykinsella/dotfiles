@@ -30,6 +30,7 @@ t_all() {
     t_emacs
     t_encfs
     t_fish
+    t_fonts
     t_git
     t_golang
     t_java
@@ -61,7 +62,11 @@ t_bacon() {
 }
 
 t_docker() {
-    install docker.io
+    sudo apt-get remove -y docker.io
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    sudo apt-get update
+    sudo apt-get install docker-ce
     sudo usermod -a -G docker $(whoami)
 }
 
@@ -85,6 +90,12 @@ t_fish() {
     # OSX compatibility for shared IntelliJ IDEA preferences
     # in which /usr/bin/env can't be used. Pff.
     sudo ln -s /usr/bin/fish /usr/local/bin/fish
+}
+
+t_fonts() {
+    mkdir -p ~/.fonts
+    cp fonts/**/*.ttf ~/.fonts
+    fc-cache -f -v
 }
 
 t_git() {
@@ -126,7 +137,9 @@ t_ruby() {
 	ruby \
 	ruby-dev
     stow gem
-    sudo gem install serverspec
+    sudo gem install \
+        bundler \
+        serverspec
 }
 
 t_ssh() {

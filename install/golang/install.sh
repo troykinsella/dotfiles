@@ -2,8 +2,8 @@
 
 set -e
 
-VERSION=1.11.2
-SUM=1dfe664fa3d8ad714bbd15a36627992effd150ddabd7523931f077b3926d736d
+VERSION=1.11.4
+SUM=fb26c30e6a04ad937bbc657a1b5bba92f80096af1e8ee6da6430c045a8db3a5b
 PKG_FILE=go${VERSION}.linux-amd64.tar.gz
 PKG_DIR=go${VERSION}
 LOCAL_DIR=/usr/local

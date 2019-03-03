@@ -4,13 +4,13 @@
 ; Packages
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+	     '("melpa" . "http://melpa.org/packages/") t)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
 (defun ensure-package-installed (&rest packages)
-  "Assure every package is installed, ask for installation if it’s not.
+  "Ensure every package is installed, ask for installation if it’s not.
    Return a list of installed packages or nil for every skipped package."
   (mapcar
    (lambda (package)
@@ -26,6 +26,7 @@
  'dockerfile-mode
  'fish-mode
  'go-mode
+ 'magit
  'telephone-line
  'yaml-mode
 )
@@ -72,20 +73,23 @@
 (telephone-line-mode 1)
 
 ; Custom
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
- '(ansi-color-names-vector
-   ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
- '(custom-enabled-themes (quote (tsdh-dark)))
- '(package-selected-packages (quote (fish-mode))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+(setq custom-file "~/.emacs.d/custom.el")
+
+(add-hook 'kill-emacs-query-functions
+               'custom-prompt-customize-unsaved-options)
+
+(if (file-exists-p custom-file)
+    (load custom-file)
+  ; else initialize custom variables
+  (custom-set-variables
+   '(ansi-color-faces-vector
+     [default default default italic underline success warning error])
+   '(ansi-color-names-vector
+     ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
+   '(custom-enabled-themes (quote (tsdh-dark)))
+   '(package-selected-packages
+     (quote
+      (magit yaml-mode telephone-line go-mode fish-mode dockerfile-mode))))
+  (custom-set-faces
+   )
+  )

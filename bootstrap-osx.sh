@@ -73,7 +73,8 @@ t_docker() {
     install_cask docker
     install \
         docker-compose \
-        docker-machine
+        docker-machine \
+        ctop
 }
 
 t_emacs() {

@@ -1,4 +1,12 @@
+# Functions
+
 function fish_greeting; end
+
+function add_path
+    if test -d $argv[1]
+        set -x PATH $argv[1] $PATH 
+    end
+end
 
 # Source
 
@@ -8,14 +16,14 @@ end
 
 # Env
 
-set -x VISUAL emacs
 set -x EDITOR emacs
+set -x VISUAL $EDITOR
 set -x GIT_EDITOR $EDITOR
 set -x PAGER less
 
 # Snap
 
-set -x PATH $PATH /snap/bin
+add_path /snap/bin
 
 # Fish Git
 
@@ -35,44 +43,30 @@ set __fish_git_prompt_char_upstream_behind '↓'
 set -x GOPATH $HOME/devel/go
 set -x GOROOT /usr/local/go
 
-if test -d $GOPATH/bin
-  set -x PATH $GOPATH/bin $PATH
-end
-if test -d $GOROOT/bin
-  set -x PATH $GOROOT/bin $PATH
-end
-
-if test -d $GOPATH/bin
-  set -x PATH $GOPATH/bin $PATH
-end
+add_path $GOPATH/bin
+add_path $GOROOT/bin
 
 # Node
 
 set -x NODE_HOME $HOME/.n
 set -x N_PREFIX $NODE_HOME
 
-if test -d $NODE_HOME/bin
-  set -x PATH $NODE_HOME/bin $PATH
-end
+add_path $NODE_HOME/bin
 
 # Java
 
 set -x JAVA_HOME /usr/local/java
 
-if test -d $JAVA_HOME/bin
-  set -x PATH $JAVA_HOME/bin $PATH
-end
+add_path $JAVA_HOME/bin
 
 # User bin
 
-if test -d $HOME/bin
-  set -x PATH $HOME/bin $PATH
-end
+add_path $HOME/bin
 
 # Colours
 
 if status --is-interactive
-    eval sh $HOME/.config/fish/scripts/base16-twilight.sh
+  eval sh $HOME/.config/fish/scripts/base16-twilight.sh
 end
 
 # Tmux

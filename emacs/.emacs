@@ -3,10 +3,21 @@
 
                                         ; Packages
 (require 'package)
-(add-to-list 'package-archives
-	     '("melpa" . "http://melpa.org/packages/") t)
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/"))
+
+
+(setq package-archives
+      '(("GNU ELPA"     . "https://elpa.gnu.org/packages/")
+	("MELPA Stable" . "https://stable.melpa.org/packages/")
+	("MELPA"        . "https://melpa.org/packages/"))
+      package-archive-priorities
+      '(("MELPA Stable" . 10)
+	("GNU ELPA"     . 5)
+	("MELPA"        . 0)))
+
+;(add-to-list 'package-archives
+;	     '("melpa" . "http://melpa.org/packages/") t)
+;(add-to-list 'package-archives
+;             '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
 (defun ensure-package-installed (&rest packages)
@@ -108,8 +119,9 @@
                                         ; Edit compressed files
 (auto-compression-mode t)
 
-                                        ; Don't use tabs for indentation
-(setq-default indent-tabs-mode nil) 
+                                        ; Configure indentation
+(setq-default indent-tabs-mode nil)
+(electric-indent-mode 0)
 
                                         ; Enable backup files
 (setq make-backup-files t)

@@ -28,6 +28,7 @@
  'fish-mode
  'go-mode
  'magit
+ 'neotree
  'powerline
  'rainbow-mode
  'yaml-mode
@@ -104,6 +105,9 @@
 
 
 (powerline-custom-theme)
+
+                                        ; Show line numbers
+(global-display-line-numbers-mode)
 
                                         ; Edit compressed files
 (auto-compression-mode t)

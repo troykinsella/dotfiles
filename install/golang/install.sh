@@ -2,9 +2,18 @@
 
 set -e
 
-VERSION=1.11.4
-SUM=fb26c30e6a04ad937bbc657a1b5bba92f80096af1e8ee6da6430c045a8db3a5b
-PKG_FILE=go${VERSION}.linux-amd64.tar.gz
+VERSION=1.12.4
+
+if [ "$(uname)" = "Linux" ]; then
+  SUM=d7d1f1f88ddfe55840712dc1747f37a790cbcaa448f6c9cf51bbe10aa65442f5
+elif [ "$(uname)" = "Darwin" ]; then
+  SUM=50af1aa6bf783358d68e125c5a72a1ba41fb83cee8f25b58ce59138896730a49
+else
+  echo "Get outta here" >&2
+  exit 1
+fi
+
+PKG_FILE=go${VERSION}.$(uname | tr '[:upper:]' '[:lower:]')-amd64.tar.gz
 PKG_DIR=go${VERSION}
 LOCAL_DIR=/usr/local
 

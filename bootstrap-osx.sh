@@ -9,7 +9,7 @@ TARGET=${1:-all}
 install() { # Lifted from vito/dotfiles
     local name=$(basename $1)
     if brew list | grep "\\<$name\\>"; then
-        brew outdated "$name" || brew install $*
+        brew outdated "$name" || brew upgrade $*
     else
         brew install $*
     fi

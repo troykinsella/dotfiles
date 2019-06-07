@@ -40,6 +40,7 @@ t_all() {
     t_protoc
     t_python
     t_ruby
+    t_rust
     t_ssh
     t_tmux
     t_terraform
@@ -142,6 +143,14 @@ t_ruby() {
     sudo gem install \
         bundler \
         serverspec
+}
+
+t_rust() {
+    if [ ! -x ~/.cargo/bin/rustup ]; then
+        curl -fSsL https://sh.rustup.rs | sh
+    else
+        ~/.cargo/bin/rustup update stable
+    fi
 }
 
 t_ssh() {

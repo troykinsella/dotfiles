@@ -59,6 +59,10 @@ set -x JAVA_HOME /usr/local/java
 
 add_path $JAVA_HOME/bin
 
+# Rust
+
+add_path $HOME/.cargo/bin
+
 # User bin
 
 add_path $HOME/bin

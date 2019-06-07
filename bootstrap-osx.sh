@@ -9,7 +9,7 @@ TARGET=${1:-all}
 install() { # Lifted from vito/dotfiles
     local name=$(basename $1)
     if brew list | grep "\\<$name\\>"; then
-        brew outdated "$name" || brew install $*
+        brew outdated "$name" || brew upgrade $*
     else
         brew install $*
     fi
@@ -48,6 +48,7 @@ t_all() {
     t_emacs
     t_fish
     t_git
+    t_golang
     t_java
     t_python
     t_slack
@@ -92,6 +93,10 @@ t_fish() {
 t_git() {
     install git
     stow git
+}
+
+t_golang() {
+    sudo install/golang/install.sh
 }
 
 t_iterm2() {

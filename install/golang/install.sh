@@ -2,12 +2,12 @@
 
 set -e
 
-VERSION=1.12.4
+VERSION=1.12.9
 
 if [ "$(uname)" = "Linux" ]; then
-  SUM=d7d1f1f88ddfe55840712dc1747f37a790cbcaa448f6c9cf51bbe10aa65442f5
+  SUM=ac2a6efcc1f5ec8bdc0db0a988bb1d301d64b6d61b7e8d9e42f662fbb75a2b9b
 elif [ "$(uname)" = "Darwin" ]; then
-  SUM=50af1aa6bf783358d68e125c5a72a1ba41fb83cee8f25b58ce59138896730a49
+  SUM=4f5478e6d985f4f68099e03f4485149efa697cf81610e514974291a29ee7e21b
 else
   echo "Get outta here" >&2
   exit 1

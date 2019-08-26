@@ -7,7 +7,7 @@ VERSION=1.12.9
 if [ "$(uname)" = "Linux" ]; then
   SUM=ac2a6efcc1f5ec8bdc0db0a988bb1d301d64b6d61b7e8d9e42f662fbb75a2b9b
 elif [ "$(uname)" = "Darwin" ]; then
-  SUM=4f5478e6d985f4f68099e03f4485149efa697cf81610e514974291a29ee7e21b
+  SUM=4f189102b15de0be1852d03a764acb7ac5ea2c67672a6ad3a340bd18d0e04bb4
 else
   echo "Get outta here" >&2
   exit 1

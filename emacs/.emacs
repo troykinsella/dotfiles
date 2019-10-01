@@ -42,6 +42,7 @@
  'neotree
  'powerline
  'rainbow-mode
+ 'rust-mode
  'yaml-mode
  )
 

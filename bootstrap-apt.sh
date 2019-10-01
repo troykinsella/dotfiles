@@ -151,6 +151,8 @@ t_rust() {
     else
         ~/.cargo/bin/rustup update stable
     fi
+
+    ~/.cargo/bin/cargo install cargo-edit || true
 }
 
 t_ssh() {

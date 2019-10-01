@@ -51,6 +51,7 @@ t_all() {
     t_golang
     t_java
     t_python
+    t_rust
     t_slack
     t_vagrant
     t_virtualbox
@@ -120,6 +121,16 @@ t_ruby() {
     stow gem
 
     sudo gem install serverspec
+}
+
+t_rust() {
+    if [ ! -x ~/.cargo/bin/rustup ]; then
+        curl -fSsL https://sh.rustup.rs | sh
+    else
+        ~/.cargo/bin/rustup update stable
+    fi
+
+    ~/.cargo/bin/cargo install cargo-edit || true
 }
 
 t_slack() {

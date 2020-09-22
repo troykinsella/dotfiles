@@ -3,6 +3,9 @@ fish/.config/fish/fish_history
 fish/.config/fish/fishd.*
 fish/.config/fish/fishfile
 
+# fish
+fish/.config/fish/fish_variables
+
 # fisher
 fish/.config/fish/completions/fisher.fish
 

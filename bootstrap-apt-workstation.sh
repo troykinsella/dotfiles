@@ -22,6 +22,7 @@ t_all() {
   t_bacon
   t_docker
   t_fish
+  t_fonts
   t_golang
   t_python
   t_ruby

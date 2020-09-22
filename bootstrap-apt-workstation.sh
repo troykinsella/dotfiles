@@ -12,37 +12,23 @@ install() {
 
 essential() {
   install \
+    curl \
     xclip
 }
 
 # Targets
 
 t_all() {
-  t_ansible
-  t_awscli
   t_bacon
   t_docker
   t_fish
   t_golang
-  t_java
-  t_nodejs
   t_python
   t_ruby
   t_rust
   t_ssh
-  t_terraform
   t_urxvt
   t_xfce4
-}
-
-t_ansible() {
-  t_python
-  sudo -H pip3 install --upgrade ansible
-}
-
-t_awscli() {
-  t_python
-  sudo -H pip3 install --upgrade awscli
 }
 
 t_bacon() {
@@ -53,10 +39,7 @@ t_docker() {
   sudo apt-get remove -y docker.io
   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
   sudo apt-get update
-  sudo apt-get install -y docker-ce
-  sudo usermod -a -G docker $(whoami)
-
-  sudo install/ctop/install.sh
+  sudo apt-get install -y docker
 }
 
 t_fish() {
@@ -77,14 +60,6 @@ t_golang() {
   sudo install/golang/install.sh
 }
 
-t_java() {
-  sudo install/java/install.sh
-}
-
-t_nodejs() {
-  install/nodejs/install.sh
-}
-
 t_python() {
   install \
     python3 \
@@ -99,9 +74,6 @@ t_ruby() {
     ruby \
     ruby-dev
   stow gem
-  sudo gem install \
-    bundler \
-    serverspec
 }
 
 t_rust() {
@@ -116,10 +88,6 @@ t_rust() {
 
 t_ssh() {
   install openssh-server
-}
-
-t_terraform() {
-  sudo install/terraform/install.sh
 }
 
 t_urxvt() {

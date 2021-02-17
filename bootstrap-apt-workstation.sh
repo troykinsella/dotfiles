@@ -78,6 +78,8 @@ t_ruby() {
 }
 
 t_rust() {
+  install libssl-dev
+
   if [[ ! -x ~/.cargo/bin/rustup ]]; then
     curl -fSsL https://sh.rustup.rs | sh
   else

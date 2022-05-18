@@ -4,6 +4,8 @@ set -euxo pipefail
 
 TARGET=${1:-all}
 
+ASDF_VERSION=0.10.0
+
 # Functions
 
 install() {
@@ -12,6 +14,7 @@ install() {
 
 essential() {
   install \
+    build-essential \
     curl \
     xclip
 }
@@ -19,21 +22,18 @@ essential() {
 # Targets
 
 t_all() {
-  t_bacon
+  t_asdf
   t_docker
-  t_fish
   t_fonts
-  t_golang
-  t_python
-  t_ruby
   t_rust
   t_ssh
-  t_urxvt
   t_xfce4
 }
 
-t_bacon() {
-  sudo install/bacon/install.sh
+t_asdf() {
+  if ! [[ -d ~/.asdf ]]; then
+    git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch "v${ASDF_VERSION}"
+  fi
 }
 
 t_docker() {
@@ -43,38 +43,10 @@ t_docker() {
   sudo apt-get install -y docker
 }
 
-t_fish() {
-  # OSX compatibility for shared IntelliJ IDEA preferences
-  # in which /usr/bin/env can't be used. Pff.
-  if [[ ! -x /usr/local/bin/fish ]]; then
-    sudo ln -s /usr/bin/fish /usr/local/bin/fish
-  fi
-}
-
 t_fonts() {
   mkdir -p ~/.fonts
   cp fonts/**/*.ttf ~/.fonts
   fc-cache -f -v
-}
-
-t_golang() {
-  sudo install/golang/install.sh
-}
-
-t_python() {
-  install \
-    python3 \
-    python3-dev \
-    python3-pip
-
-  sudo -H pip3 install --upgrade pip setuptools wheel
-}
-
-t_ruby() {
-  install \
-    ruby \
-    ruby-dev
-  stow gem
 }
 
 t_rust() {
@@ -91,14 +63,6 @@ t_rust() {
 
 t_ssh() {
   install openssh-server
-}
-
-t_urxvt() {
-  install rxvt
-  stow urxvt
-  sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/urxvt 10
-  sudo update-alternatives --set x-terminal-emulator /usr/bin/urxvt
-  xrdb ~/.Xresources
 }
 
 t_xfce4() {

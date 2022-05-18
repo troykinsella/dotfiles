@@ -38,26 +38,12 @@ set __fish_git_prompt_char_upstream_equal ''
 set __fish_git_prompt_char_upstream_ahead '↑'
 set __fish_git_prompt_char_upstream_behind '↓'
 
-# Go
+# Asdf
 
-set -x GOPATH $HOME/devel/go
-set -x GOROOT /usr/local/go
-
-add_path $GOPATH/bin
-add_path $GOROOT/bin
-
-# Node
-
-set -x NODE_HOME $HOME/.n
-set -x N_PREFIX $NODE_HOME
-
-add_path $NODE_HOME/bin
-
-# Java
-
-set -x JAVA_HOME /usr/local/java
-
-add_path $JAVA_HOME/bin
+add_path $HOME/.asdf/bin
+source $HOME/.asdf/asdf.fish
+mkdir -p ~/.config/fish/completions
+ln -sf ~/.asdf/completions/asdf.fish ~/.config/fish/completions
 
 # Rust
 
@@ -76,12 +62,3 @@ end
 # Tmux
 
 alias tmux "tmux -2"
-
-# Automatically run tmux when interactive
-#if test $TERM = "xterm-256color" -o $TERM = "rxvt-unicode-256color"
-#  if which tmux >/dev/null; and status --is-interactive
-#    if test -z (echo $TMUX)
-#      exec tmux
-#    end
-#  end
-#end

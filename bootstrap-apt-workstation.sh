@@ -13,6 +13,8 @@ install() {
 essential() {
   install \
     curl \
+    net-tools \
+    whois \
     xclip
 }
 

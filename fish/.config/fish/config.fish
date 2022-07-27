@@ -52,6 +52,7 @@ add_path $HOME/.cargo/bin
 # User bin
 
 add_path $HOME/bin
+add_path $HOME/.local/bin
 
 # Colours
 

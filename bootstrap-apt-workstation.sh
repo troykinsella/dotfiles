@@ -61,6 +61,7 @@ t_packages() {
     gimp \
     gkrellm \
     gkrelltop \
+    greybird-gtk-theme \
     keepassxc \
     inkscape \
     lmms \

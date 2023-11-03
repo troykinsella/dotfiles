@@ -85,7 +85,7 @@ t_rust() {
 }
 
 t_snaps() {
-  local snaps="core authy brave"
+  local snaps="core authy brave xmind"
   for s in $snaps; do
     sudo snap install $s
   done

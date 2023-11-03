@@ -9,7 +9,7 @@ ASDF_VERSION=0.10.0
 # Functions
 
 install() {
-  sudo apt-get install -y $*
+  sudo apt install -y $*
 }
 
 essential() {
@@ -17,6 +17,9 @@ essential() {
     build-essential \
     curl \
     net-tools \
+    pkg-config \
+    snapd \
+    software-properties-common \
     whois \
     xclip
 }
@@ -27,8 +30,9 @@ t_all() {
   t_asdf
   t_docker
   t_fonts
+  t_packages
   t_rust
-  t_ssh
+  t_snaps
   t_xfce4
 }
 
@@ -51,6 +55,23 @@ t_fonts() {
   fc-cache -f -v
 }
 
+t_packages() {
+  install \
+    audacity \
+    gimp \
+    gkrellm \
+    gkrelltop \
+    keepassxc \
+    inkscape \
+    lmms \
+    obs-studio \
+    openssh-server \
+    peek \
+    tigervnc-viewer \
+    thunderbird \
+    vlc
+}
+
 t_rust() {
   install libssl-dev
 
@@ -63,8 +84,11 @@ t_rust() {
   ~/.cargo/bin/cargo install cargo-edit || true
 }
 
-t_ssh() {
-  install openssh-server
+t_snaps() {
+  local snaps="core authy brave"
+  for s in $snaps; do
+    sudo snap install $s
+  done
 }
 
 t_xfce4() {

@@ -39,6 +39,13 @@ t_emacs() {
 
 t_fish() {
   install fish
+
+  # When previously unstowed, and a config.fish file exists, move it
+  # to allow the stow to succeed
+  if [[ ! -L ~/.config/fish ]] && [[ -f ~/.config/fish/config.fish ]]; then
+    mv ~/.config/fish/config.fish ~/.config/fish/config.fish.bak
+  fi
+
   stow fish
   sudo chsh -s /usr/bin/fish $(whoami)
 }

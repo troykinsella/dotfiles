@@ -8,6 +8,12 @@ function add_path
     end
 end
 
+function source_if_exists
+    if test -f $argv[1]
+        source $argv[1]
+    end
+end
+
 # Source
 
 if test -f ~/.config/fish/functions/fisherman/fisher.fish
@@ -41,7 +47,7 @@ set __fish_git_prompt_char_upstream_behind '↓'
 # Asdf
 
 add_path $HOME/.asdf/bin
-source $HOME/.asdf/asdf.fish
+source_if_exists $HOME/.asdf/asdf.fish
 mkdir -p ~/.config/fish/completions
 ln -sf ~/.asdf/completions/asdf.fish ~/.config/fish/completions
 

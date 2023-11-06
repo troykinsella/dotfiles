@@ -39,10 +39,8 @@ t_asdf() {
 }
 
 t_docker() {
-  sudo apt-get remove -y docker.io
-  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-  sudo apt-get update
-  sudo apt-get install -y docker
+  sudo apt-get remove -y docker.io docker-ce
+  install podman
 }
 
 t_fonts() {

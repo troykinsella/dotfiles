@@ -13,12 +13,18 @@ install() {
 essential() {
   install \
     curl \
+    btop \
+    direnv \
+    fd-find \
     htop \
     iftop \
     iotop \
     jq \
+    lsd \
     nethogs \
-    stow
+    ripgrep \
+    stow \
+    zoxide
 }
 
 # Targets
@@ -31,10 +37,20 @@ t_all() {
 }
 
 t_emacs() {
-  install emacs-nox
-  stow emacs
+  install emacs
+
+  if [[ ! -d ~/.config/emacs/.git  ]]; then
+    git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
+    ~/.config/emacs/bin/doom install
+  else
+    ~/.config/emacs/bin/doom upgrade
+    ~/.config/emacs/bin/doom sync
+  fi
+
   sudo update-alternatives --install /usr/bin/editor editor /usr/bin/emacs 60
   sudo update-alternatives --set editor /usr/bin/emacs
+
+  stow emacs
 }
 
 t_fish() {

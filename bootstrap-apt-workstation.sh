@@ -27,13 +27,22 @@ essential() {
 # Targets
 
 t_all() {
+  t_ansible
   t_asdf
   t_docker
+  t_doom_emacs
   t_fonts
+  t_just
   t_packages
+  t_python
   t_rust
   t_snaps
   t_xfce4
+}
+
+t_ansible() {
+  which pipx || t_python
+  pipx install --include-deps ansible
 }
 
 t_asdf() {
@@ -47,10 +56,30 @@ t_docker() {
   install podman
 }
 
+t_doom_emacs() {
+  install \
+    libtool-bin \
+    fd-find \
+    ripgrep \
+    shellcheck
+
+  if [[ ! -d ~/.config/emacs ]]; then
+    git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
+    ~/.config/emacs/bin/doom install
+    ~/.config/emacs/bin/doom doctor
+  fi
+
+}
+
 t_fonts() {
   mkdir -p ~/.fonts
   cp fonts/**/*.ttf ~/.fonts
   fc-cache -f -v
+}
+
+t_just() {
+  test -x ~/bin/just && return
+  curl -fSsL https://just.systems/install.sh | bash -s -- --to ~/bin
 }
 
 t_packages() {
@@ -66,9 +95,15 @@ t_packages() {
     obs-studio \
     openssh-server \
     peek \
-    tigervnc-viewer \
+    remmina \
     thunderbird \
     vlc
+}
+
+t_python() {
+  install \
+    python3 \
+    pipx
 }
 
 t_rust() {
@@ -80,11 +115,16 @@ t_rust() {
     ~/.cargo/bin/rustup update stable
   fi
 
+  rustup component add rust-src
+  rustup component add rust-analyzer
+
+  rustup target add wasm32-unknown-unknown
+
   ~/.cargo/bin/cargo install cargo-edit || true
 }
 
 t_snaps() {
-  local snaps="core authy brave xmind"
+  local snaps="core brave xmind"
   for s in $snaps; do
     sudo snap install $s
   done

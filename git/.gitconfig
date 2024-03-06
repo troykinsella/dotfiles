@@ -18,3 +18,14 @@
 	required = true
 [core]
 	autocrlf = input
+[init]
+	defaultBranch = master
+[rerere]
+	enabled = true
+[column]
+	ui = auto
+[branch]
+	sort = -committerdate
+[maintenane]
+	auto = false
+	strategy = incremental

@@ -29,8 +29,8 @@ essential() {
 t_all() {
   t_ansible
   t_asdf
+  t_awesome
   t_docker
-  t_doom_emacs
   t_fonts
   t_just
   t_packages
@@ -51,24 +51,18 @@ t_asdf() {
   fi
 }
 
+t_awesome() {
+  install \
+    awesome \
+    rofi \
+    compton
+
+  stow awesome
+}
+
 t_docker() {
   sudo apt-get remove -y docker.io docker-ce
   install podman
-}
-
-t_doom_emacs() {
-  install \
-    libtool-bin \
-    fd-find \
-    ripgrep \
-    shellcheck
-
-  if [[ ! -d ~/.config/emacs ]]; then
-    git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
-    ~/.config/emacs/bin/doom install
-    ~/.config/emacs/bin/doom doctor
-  fi
-
 }
 
 t_fonts() {

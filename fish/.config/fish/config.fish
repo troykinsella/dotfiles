@@ -64,7 +64,7 @@ alias tmux "tmux -2"
 
 alias e='emacsclient -t -a emacs'
 
-if which eza
+if which eza > /dev/null
   alias ls='eza --color=always --group-directories-first'
   alias la='eza -a --color=always --group-directories-first'
   alias ll='eza -l --color=always --group-directories-first'

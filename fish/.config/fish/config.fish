@@ -14,35 +14,21 @@ function source_if_exists
     end
 end
 
-# Source
+# Prompt
 
-if test -f ~/.config/fish/functions/fisherman/fisher.fish
-  source ~/.config/fish/functions/fisherman/fisher.fish
-end
+starship init fish | source
 
 # Env
 
-set -x EDITOR emacs
-set -x VISUAL $EDITOR
+set -x EDITOR "emacsclient -t -a emacs"
+set -x VISUAL "emacsclient -c -a emacs"
 set -x GIT_EDITOR $EDITOR
 set -x PAGER less
+set -x MANPAGER $PAGER
 
 # Snap
 
 add_path /snap/bin
-
-# Fish Git
-
-set __fish_git_prompt_showdirtystate 'yes'
-set __fish_git_prompt_showupstream 'auto'
-set __fish_git_prompt_color_branch green
-set __fish_git_prompt_color_upstream_ahead blue
-set __fish_git_prompt_color_upstream_behind red
-set __fish_git_prompt_char_dirtystate '*'
-set __fish_git_prompt_char_stagedstate '→'
-set __fish_git_prompt_char_upstream_equal ''
-set __fish_git_prompt_char_upstream_ahead '↑'
-set __fish_git_prompt_char_upstream_behind '↓'
 
 # Asdf
 
@@ -73,3 +59,19 @@ alias docker=podman
 # Tmux
 
 alias tmux "tmux -2"
+
+# Aliases
+
+alias e='emacsclient -t -a emacs'
+
+if which eza
+  alias ls='eza --color=always --group-directories-first'
+  alias la='eza -a --color=always --group-directories-first'
+  alias ll='eza -l --color=always --group-directories-first'
+  alias lt='eza -aT --color=always --group-directories-first'
+  alias l.='eza -a | egrep "^\."'
+end
+
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'

@@ -27,6 +27,7 @@ essential() {
 # Targets
 
 t_all() {
+  t_alacritty
   t_ansible
   t_asdf
   t_awesome
@@ -38,6 +39,22 @@ t_all() {
   t_rust
   t_snaps
   t_xfce4
+}
+
+t_alacritty() {
+  which cargo || t_rust
+
+  install \
+    cmake \
+    pkg-config \
+    libfreetype6-dev \
+    libfontconfig1-dev \
+    libxcb-xfixes0-dev \
+    libxkbcommon-dev \
+    python3
+
+  cargo install alacritty eza
+  stow alacritty
 }
 
 t_ansible() {

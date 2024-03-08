@@ -20,28 +20,23 @@ essential() {
     iftop \
     iotop \
     jq \
-    lsd \
     nethogs \
     ripgrep \
-    stow \
-    zoxide
+    stow
 }
 
 # Targets
 
 t_all() {
   t_emacs
-  t_fish
   t_git
-  t_tmux
+  t_shell
 }
 
 t_emacs() {
   install \
     cmake \
     libtool-bin \
-    fd-find \
-    ripgrep \
     shellcheck \
     emacs
 
@@ -60,8 +55,18 @@ t_emacs() {
   stow emacs
 }
 
-t_fish() {
-  install fish
+
+t_git() {
+  install git
+  stow git
+}
+
+t_shell() {
+  install \
+    fish \
+    neofetch \
+    tmux \
+    zoxide
 
   # When previously unstowed, and a config.fish file exists, move it
   # to allow the stow to succeed
@@ -71,15 +76,10 @@ t_fish() {
 
   stow fish
   sudo chsh -s /usr/bin/fish $(whoami)
-}
 
-t_git() {
-  install git
-  stow git
-}
+  curl -SsLf https://starship.rs/install.sh | sh
+  stow starship
 
-t_tmux() {
-  install tmux
   stow tmux
 }
 

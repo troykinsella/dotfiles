@@ -1,5 +1,5 @@
 [Configuration]
-FontName=DejaVu Sans Mono 10
+FontName=Source Code Pro 12
 MiscAlwaysShowTabs=FALSE
 MiscBell=FALSE
 MiscBordersDefault=TRUE
@@ -29,3 +29,16 @@ ColorSelection=#163b59
 ColorSelectionUseDefault=FALSE
 ColorPalette=#1e1e1e1e1e1e;#545459595c5c;#46464b4b5050;#777771717878;#838381818484;#a7a7a7a7a7a7;#b7bdb7bdb7bd;#a9a9b7b7c6c6;#cfcf6a6a4c4c;#cdcda8a86969;#f0f0c6c67474;#b5b5bdbd6868;#8a8ab40bbebe;#8181a2a2bebe;#b2b29494bbbb;#9b9b70703f3f
 TabActivityColor=#0f4999
+MiscBellUrgent=FALSE
+MiscMouseWheelZoom=TRUE
+MiscMiddleClickOpensUri=FALSE
+MiscCopyOnSelect=FALSE
+MiscShowRelaunchDialog=TRUE
+MiscRewrapOnResize=TRUE
+MiscUseShiftArrowsToScroll=FALSE
+MiscSlimTabs=FALSE
+MiscNewTabAdjacent=FALSE
+MiscSearchDialogOpacity=100
+MiscShowUnsafePasteDialog=TRUE
+MiscRightClickAction=TERMINAL_RIGHT_CLICK_ACTION_CONTEXT_MENU
+

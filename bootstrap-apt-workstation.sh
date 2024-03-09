@@ -4,7 +4,7 @@ set -euxo pipefail
 
 TARGET=${1:-all}
 
-ASDF_VERSION=0.10.0
+ASDF_VERSION=0.14.0
 
 # Functions
 

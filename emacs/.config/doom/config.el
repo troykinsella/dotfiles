@@ -81,10 +81,9 @@
 ;;
 ;; TK: Custom
 ;;
-(add-hook 'window-setup-hook #'toggle-frame-maximized)
+;(add-hook 'window-setup-hook #'toggle-frame-maximized)
 (add-hook 'emacs-startup-hook 'treemacs)
 
 (setq rust-format-on-save t)
 (add-hook 'rust-mode-hook
           (lambda () (prettify-symbols-mode)))
-

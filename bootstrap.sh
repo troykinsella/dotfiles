@@ -52,4 +52,7 @@ esac
 install_just
 fetch_dotfiles
 
-just basic
+(
+  cd ~/.dotfiles
+  just basic
+)

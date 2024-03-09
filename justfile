@@ -72,6 +72,16 @@ essential: package-cache-update
   esac
 
 
+home-dirs:
+  mkdir -p bin
+  mkdir -p Downloads
+  ln -sf Downloads dl
+  mkdir -p Documents
+  mkdir -p Pictures
+  mkdir -p Videos
+  mkdir -p tmp
+
+
 git:
   #!/usr/bin/env bash
   case "{{distro}}" in
@@ -107,6 +117,8 @@ emacs:
       ;;
   esac
 
+  stow emacs
+
   if [[ ! -d ~/.config/emacs/.git  ]]; then
     git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
     ~/.config/emacs/bin/doom install
@@ -115,8 +127,6 @@ emacs:
     ~/.config/emacs/bin/doom upgrade
     ~/.config/emacs/bin/doom sync
   fi
-
-  stow emacs
 
 
 shell:
@@ -322,7 +332,7 @@ fonts:
   fc-cache -f -v
 
 
-basic: essential emacs git shell yay
+basic: essential home-dirs emacs git shell yay
 
 
 workstation: basic workstation-essential window-manager terminal ansible asdf workstation-applications

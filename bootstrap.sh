@@ -54,5 +54,5 @@ fetch_dotfiles
 
 (
   cd ~/.dotfiles
-  just basic
+  ~/bin/just basic
 )

@@ -73,13 +73,13 @@ essential: package-cache-update
 
 
 home-dirs:
-  mkdir -p bin
-  mkdir -p Downloads
-  ln -sf Downloads dl
-  mkdir -p Documents
-  mkdir -p Pictures
-  mkdir -p Videos
-  mkdir -p tmp
+  mkdir -p ~/bin
+  mkdir -p ~/Downloads
+  ln -sf ~/Downloads ~/dl
+  mkdir -p ~/Documents
+  mkdir -p ~/Pictures
+  mkdir -p ~/Videos
+  mkdir -p ~/tmp
 
 
 git:

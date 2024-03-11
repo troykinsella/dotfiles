@@ -53,6 +53,7 @@ essential: package-cache-update
         jq \
         nethogs \
         ripgrep \
+        unzip \
         stow
       ;;
     arch)
@@ -65,8 +66,10 @@ essential: package-cache-update
         iftop \
         iotop \
         jq \
+        less \
         nethogs \
         ripgrep \
+        unzip \
         stow
       ;;
   esac
@@ -74,12 +77,12 @@ essential: package-cache-update
 
 home-dirs:
   mkdir -p ~/bin
-  mkdir -p ~/Downloads
-  ln -sf ~/Downloads ~/dl
-  mkdir -p ~/Documents
-  mkdir -p ~/Pictures
-  mkdir -p ~/Videos
+  mkdir -p ~/dl
+  mkdir -p ~/documents
+  mkdir -p ~/pictures
   mkdir -p ~/tmp
+  mkdir -p ~/videos
+  mkdir -p ~/wallpapers
 
 
 git:
@@ -122,11 +125,11 @@ emacs:
   if [[ ! -d ~/.config/emacs/.git  ]]; then
     git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
     ~/.config/emacs/bin/doom install
-    ~/.config/emacs/bin/doom doctor
   else
     ~/.config/emacs/bin/doom upgrade
-    ~/.config/emacs/bin/doom sync
   fi
+
+  ~/.config/emacs/bin/doom sync
 
 
 shell:
@@ -187,7 +190,7 @@ rust:
   ~/.cargo/bin/cargo install cargo-edit || true
 
 
-terminal: fonts rust
+terminal: fonts rust python
   #!/usr/bin/env bash
   case "{{distro}}" in
     debian|ubuntu)
@@ -198,7 +201,6 @@ terminal: fonts rust
         libfontconfig1-dev \
         libxcb-xfixes0-dev \
         libxkbcommon-dev \
-        python3
       cargo install \
         alacritty \
         eza
@@ -308,21 +310,28 @@ window-manager: python fonts
         awesome \
         greybird-gtk-theme \
         libpangocairo-1.0-0 \
+        nitrogen \
+        picom \
         python3-xcffib \
         python3-cairocffi \
+        python3-psutil \
         rofi
       pipx install --include-deps qtile
       ;;
     arch)
       sudo pacman -S --needed \
         awesome \
+        nitrogen \
+        picom \
+        python3-psutil \
         rofi \
         qtile
       ;;
   esac
 
   stow awesome
-  #stow qtile
+  stow picom
+  stow qtile
   stow xfce4
 
 

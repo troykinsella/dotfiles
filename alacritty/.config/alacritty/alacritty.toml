@@ -9,7 +9,7 @@ cursor = "#528bff"
 text = "CellBackground"
 
 [font]
-size = 10
+size = 12
 
 [font.bold]
 family = "SauceCodePro Nerd Font"

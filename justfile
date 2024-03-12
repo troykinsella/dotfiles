@@ -188,7 +188,7 @@ workstation-essential:
     xclip
 
   if [[ "{{distro}}" == arch ]]; then
-    yay -S python-pulsectl-asyncio
+    yay -S --needed python-pulsectl-asyncio
   fi
 
 workstation-applications:

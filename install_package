@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+distro=$(grep ^ID= /etc/os-release | cut -d= -f2)
+distro_kind=$(grep ^ID_LIKE= /etc/os-release | cut -d= -f2 || true)
+: ${distro_kind:=$distro}
+
+# Functions
+
+install_package() {
+  local package="$1"
+
+  echo "Installing package: $package"
+
+  if [[ $package == *"#"* ]]; then
+    local required_distro=$(echo "$package" | cut -d'#' -f2)
+    if [[ $required_distro != $distro_kind ]]; then
+      echo "Skipping $package"
+      return 0
+    fi
+    package=$(echo "$package" | cut -d'#' -f1)
+  fi
+
+  case "$distro_kind" in
+    debian)
+      sudo apt-get install -y "$package"
+      ;;
+    arch)
+      sudo pacman -S --needed "$package"
+      ;;
+    *)
+      echo "Unsupported distro: ${distro}" >&2
+      exit 1
+      ;;
+  esac
+}
+
+# Main
+
+for p in "$@"; do
+  install_package "$p"
+done

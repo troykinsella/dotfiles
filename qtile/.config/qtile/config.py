@@ -221,14 +221,11 @@ widgets = [
         format = ' {MemUsed:.0f}{mm}',
     ),
     widget.Spacer(length = 8),
-#    widget.PulseVolume(
-#        foreground = colors[7],
-#        mouse_callbacks = {'Button3': lambda: qtile.cmd_spawn("pavucontrol")},
-#        update_interval = 0
-#    ),
-    widget.Volume(
-        foreground = colors[7],
+    widget.PulseVolume(
         fmt = ' {}',
+        foreground = colors[7],
+        mouse_callbacks = {'Button3': lambda: qtile.cmd_spawn("pavucontrol")},
+        update_interval = 0
     ),
     widget.Spacer(length = 8),
     # NB Systray is incompatible with Wayland, consider using StatusNotifier instead

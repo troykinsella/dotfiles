@@ -38,41 +38,21 @@ package-cache-update:
   esac
 
 
-essential: package-cache-update
-  #!/usr/bin/env bash
-  case "{{distro}}" in
-    debian|ubuntu)
-      sudo apt-get install -y \
-        btop \
-        curl \
-        direnv \
-        fd-find \
-        htop \
-        iftop \
-        iotop \
-        jq \
-        nethogs \
-        ripgrep \
-        unzip \
-        stow
-      ;;
-    arch)
-      sudo pacman -S --needed \
-        btop \
-        curl \
-        direnv \
-        fd \
-        htop \
-        iftop \
-        iotop \
-        jq \
-        less \
-        nethogs \
-        ripgrep \
-        unzip \
-        stow
-      ;;
-  esac
+essential: #package-cache-update
+  ./install_package \
+    btop \
+    curl \
+    direnv \
+    "fd-find#debian" \
+    "fd#arch" \
+    htop \
+    iftop \
+    iotop \
+    jq \
+    nethogs \
+    ripgrep \
+    unzip \
+    stow
 
 
 home-dirs:
@@ -86,37 +66,23 @@ home-dirs:
 
 
 git:
-  #!/usr/bin/env bash
-  case "{{distro}}" in
-    debian|ubuntu)
-      sudo apt-get install -y git
-      ;;
-    arch)
-      sudo pacman -S --needed git
-      ;;
-  esac
+  ./install_package git
   stow git
 
 
 emacs:
   #!/usr/bin/env bash
+  ./install_package \
+    cmake \
+    "libtool#arch" \
+    "libtool-bin#debian" \
+    shellcheck \
+    emacs
+
   case "{{distro}}" in
     debian|ubuntu)
-      sudo apt-get install -y \
-        cmake \
-        libtool-bin \
-        shellcheck \
-        emacs
-
       sudo update-alternatives --install /usr/bin/editor editor /usr/bin/emacs 60
       sudo update-alternatives --set editor /usr/bin/emacs
-      ;;
-    arch)
-      sudo pacman -S --needed \
-        cmake \
-        libtool \
-        shellcheck \
-        emacs
       ;;
   esac
 
@@ -134,23 +100,17 @@ emacs:
 
 shell:
   #!/usr/bin/env bash
+  ./install_package \
+    fish \
+    neofetch \
+    "starship#arch" \
+    zoxide
+
   case "{{distro}}" in
     debian|ubuntu)
-      sudo apt-get install -y \
-        fish \
-        neofetch \
-        zoxide
-
       if ! which starship; then
         curl -SsLf https://starship.rs/install.sh | sh
       fi
-      ;;
-    arch)
-      sudo pacman -S --needed \
-        fish \
-        neofetch \
-        starship \
-        zoxide
       ;;
   esac
 
@@ -168,15 +128,14 @@ shell:
 
 rust:
   #!/usr/bin/env bash
+  ./install_package "rustup#arch"
+
   case "{{distro}}" in
     debian|ubuntu)
       sudo apt-get install -y libssl-dev
       if [[ ! -x ~/.cargo/bin/rustup ]]; then
         curl -fSsL https://sh.rustup.rs | sh
       fi
-      ;;
-    arch)
-      sudo pacman -S --needed rustup
       ;;
   esac
 
@@ -192,21 +151,19 @@ rust:
 
 terminal: fonts rust python
   #!/usr/bin/env bash
+  ./install_package \
+    cmake \
+    pkg-config \
+    "libfreetype6-dev#debian" \
+    "libfontconfig1-dev#debian" \
+    "libxcb-xfixes0-dev#debian" \
+    "libxkbcommon-dev#debian" \
+    "alacrity#arch" \
+    "eza#arch"
+
   case "{{distro}}" in
     debian|ubuntu)
-      sudo apt-get install -y \
-        cmake \
-        pkg-config \
-        libfreetype6-dev \
-        libfontconfig1-dev \
-        libxcb-xfixes0-dev \
-        libxkbcommon-dev \
       cargo install \
-        alacritty \
-        eza
-      ;;
-    arch)
-      sudo pacman -S --needed \
         alacritty \
         eza
       ;;
@@ -217,72 +174,49 @@ terminal: fonts rust python
 
 workstation-essential:
   #!/usr/bin/env bash
-  case "{{distro}}" in
-    debian|ubuntu)
-      sudo apt-get install -y \
-        build-essential \
-        net-tools \
-        openssh-server \
-        pkg-config \
-        snapd \
-        software-properties-common \
-        whois \
-        xclip
-      ;;
-    arch)
-      sudo pacman -S --needed \
-        base-devel \
-        net-tools \
-        pkg-config \
-        whois \
-        xclip
-      ;;
-  esac
+  ./install_package \
+    "base-devel#arch" \
+    "build-essential#debian" \
+    "libpulse#arch" \
+    net-tools \
+    "openssh-server#debian" \
+    pavucontrol \
+    pkg-config \
+    "snapd#debian" \
+    "software-properties-common#debian" \
+    whois \
+    xclip
 
+  if [[ "{{distro}}" == arch ]]; then
+    yay -S python-pulsectl-asyncio
+  fi
 
 workstation-applications:
   #!/usr/bin/env bash
-  case "{{distro}}" in
-    debian|ubuntu)
-      sudo apt-get install -y \
-        audacity \
-        gimp \
-        keepassxc \
-        inkscape \
-        lmms \
-        obs-studio \
-        peek \
-        remmina \
-        thunderbird \
-        vlc
-      ;;
-    arch)
-      sudo pacman -S --needed \
-        audacity \
-        gimp \
-        keepassxc \
-        inkscape \
-        lmms \
-        obs-studio \
-        peek \
-        remmina \
-        thunderbird \
-        vlc
-      sudo yay -S --needed brave-bin
-      ;;
-  esac
+  ./install_package \
+    audacity \
+    kdenlive \
+    gimp \
+    keepassxc \
+    krita \
+    inkscape \
+    lmms \
+    obs-studio \
+    peek \
+    remmina \
+    thunderbird \
+    vlc
+
+  if [[ "{{distro}}" == arch ]]; then
+    yay -S --needed brave-bin
+  fi
 
 
 python:
-  #!/usr/bin/env bash
-  case "{{distro}}" in
-    debian|ubuntu)
-      sudo apt-get install -y python3 pipx
-      ;;
-    arch)
-      sudo pacman -S --needed python3 python-pipx
-      ;;
-  esac
+  ./install_package \
+    python3 \
+    "pipx#debian" \
+    "python-pipx#arch"
 
 
 ansible: python
@@ -304,29 +238,22 @@ asdf:
 
 window-manager: python fonts
   #!/usr/bin/env bash
+  ./install_package \
+    awesome \
+    "gnome-themes-extra#arch" \
+    "greybird-gtk-theme#debian" \
+    "libpangocairo-1.0-0#debian" \
+    nitrogen \
+    picom \
+    "python3-xcffib#debian" \
+    "python3-cairocffi#debian" \
+    python3-psutil \
+    rofi \
+    "qtile#arch"
+
   case "{{distro}}" in
     debian|ubuntu)
-      sudo apt-get install -y \
-        awesome \
-        greybird-gtk-theme \
-        libpangocairo-1.0-0 \
-        nitrogen \
-        picom \
-        python3-xcffib \
-        python3-cairocffi \
-        python3-psutil \
-        rofi
       pipx install --include-deps qtile
-      ;;
-    arch)
-      sudo pacman -S --needed \
-        awesome \
-        gnome-themes-extra \
-        nitrogen \
-        picom \
-        python3-psutil \
-        rofi \
-        qtile
       ;;
   esac
 
@@ -344,13 +271,13 @@ fonts:
 
 vault: git
   #!/usr/bin/env bash
-  if [[ -d ~/.vault/.git ]]; then
+  if ! [[ -d ~/.vault/.git ]]; then
+    git clone git@github.com:troykinsella/vault.git ~/.vault
+  else
     (
       cd ~/.vault
       git pull
     )
-  else
-    git clone git@github.com:troykinsella/vault.git .vault
   fi
 
 
@@ -370,5 +297,5 @@ workstation: \
   terminal \
   ansible \
   asdf \
-  workstation-applications
+  workstation-applications \
   vault

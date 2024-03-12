@@ -321,6 +321,7 @@ window-manager: python fonts
     arch)
       sudo pacman -S --needed \
         awesome \
+        gnome-themes-extra \
         nitrogen \
         picom \
         python3-psutil \
@@ -330,9 +331,9 @@ window-manager: python fonts
   esac
 
   stow awesome
+  stow gtk
   stow picom
   stow qtile
-  stow xfce4
 
 
 fonts:
@@ -341,7 +342,33 @@ fonts:
   fc-cache -f -v
 
 
-basic: essential home-dirs emacs git shell yay
+vault: git
+  #!/usr/bin/env bash
+  if [[ -d ~/.vault/.git ]]; then
+    (
+      cd ~/.vault
+      git pull
+    )
+  else
+    git clone git@github.com:troykinsella/vault.git .vault
+  fi
 
 
-workstation: basic workstation-essential window-manager terminal ansible asdf workstation-applications
+basic: \
+  essential \
+  home-dirs \
+  emacs \
+  git \
+  shell \
+  yay
+
+
+workstation: \
+  basic \
+  workstation-essential \
+  window-manager \
+  terminal \
+  ansible \
+  asdf \
+  workstation-applications
+  vault

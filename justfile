@@ -281,21 +281,7 @@ vault: git
   fi
 
 
-basic: \
-  essential \
-  home-dirs \
-  emacs \
-  git \
-  shell \
-  yay
+basic: essential home-dirs emacs git shell yay
 
 
-workstation: \
-  basic \
-  workstation-essential \
-  window-manager \
-  terminal \
-  ansible \
-  asdf \
-  workstation-applications \
-  vault
+workstation: basic workstation-essential window-manager terminal ansible asdf workstation-applications vault

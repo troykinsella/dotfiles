@@ -5,8 +5,10 @@ from qtile_extras import widget
 from qtile_extras.widget.decorations import BorderDecoration
 import colors
 import os
+import glob
 import subprocess
 import distro
+from groups import *
 
 mod = "mod4"
 terminal = "alacritty"
@@ -34,6 +36,16 @@ def htop():
 def search():
     qtile.cmd_spawn("rofi -show drun")
 
+
+def backlight_device_name():
+    next(iter(os.listdir("/sys/class/backlight")), None)
+
+
+def wifi_device_name():
+    dev_dir = glob.glob('/sys/class/ieee80211/*/device/net')
+    if len(dev_dir) == 0:
+        return None
+    next(iter(os.listdir(dev_dir[0])), None)
 
 ########
 # Keys #
@@ -77,7 +89,7 @@ keys = [
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
     Key([mod], "e", lazy.spawn(editor), desc="Run emacs"),
     Key(
-        [mod, "shift"],
+        [mod, "shift", "control"],
         "f",
         lazy.window.toggle_fullscreen(),
         desc="Toggle fullscreen on the focused window",
@@ -85,7 +97,6 @@ keys = [
     Key([mod], "t", lazy.window.toggle_floating(), desc="Toggle floating on the focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    # Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
     Key([mod], "r", lazy.spawn("rofi -show drun"), desc="Spawn a command using a prompt widget"),
 ]
 
@@ -103,7 +114,6 @@ for vt in range(1, 8):
     )
 
 
-groups = [Group(i) for i in "123456789"]
 
 for i in groups:
     keys.extend(
@@ -133,7 +143,7 @@ for i in groups:
 # Layouts #
 ###########
 
-colors = colors.DoomOne
+colors = colors.Doom2
 
 layout_theme = {
     "border_width": 0,
@@ -165,19 +175,20 @@ widget_defaults = dict(
 
 extension_defaults = widget_defaults.copy()
 widgets = [
-    widget.Spacer(length = 8),
+    widget.Spacer(length = 10),
     widget.TextBox(
         text = distro_icon(),
         fontsize = 20,
         padding = 8,
-        mouse_callbacks = {'Button1': lambda: search()},
+        mouse_callbacks = {'Button1': lambda: search()}
     ),
-    widget.Spacer(length = 8),
+    widget.Spacer(length = 10),
     widget.CurrentLayoutIcon(
         foreground = colors[1],
         padding = 4,
         scale = 0.6
     ),
+    widget.Spacer(length = 10),
     widget.GroupBox(
         font="SauceCodePro Nerd Font Bold",
         borderwidth = 3,
@@ -195,17 +206,18 @@ widgets = [
         rounded = True,
         disable_drag = True,
     ),
-    widget.Prompt(),
+    widget.Spacer(length = 10),
     widget.WindowName(
-        font="SauceCodePro Nerd Font Bold",
+        font = "SauceCodePro Nerd Font Bold",
+        format = "{name}",
         foreground = colors[6],
-        max_chars = 40
+        max_chars = 100
     ),
-    widget.Spacer(length = 8),
+    widget.Spacer(length = bar.STRETCH),
     widget.Net(
         foreground = colors[5],
         interface = "enp1s0", # TODO: <--
-        format = "↓{down} ↑{up}",
+        format = "↓{down:5.0f}{down_suffix:<2} ↑{up:5.0f}{up_suffix:<2}",
         updateinterval = 1.0,
     ),
     widget.Spacer(length = 8),
@@ -214,27 +226,35 @@ widgets = [
         mouse_callbacks = {'Button1': lambda: htop()},
         foreground = colors[4],
     ),
-    widget.Spacer(length = 8),
+    widget.Spacer(length = 10),
     widget.Memory(
         foreground = colors[8],
         mouse_callbacks = {'Button1': lambda: htop()},
         format = ' {MemUsed:.0f}{mm}',
     ),
-    widget.Spacer(length = 8),
+    widget.Spacer(length = 10),
     widget.PulseVolume(
         fmt = ' {}',
         foreground = colors[7],
         mouse_callbacks = {'Button3': lambda: qtile.cmd_spawn("pavucontrol")},
         update_interval = 0
     ),
-    widget.Spacer(length = 8),
+    widget.Spacer(length = 10),
     # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
     # widget.StatusNotifier(),
     widget.Systray(),
-    widget.Spacer(length = 8),
+    widget.Spacer(length = 10),
     widget.Clock(format=" %I:%M %p"),
-    widget.Spacer(length = 8),
+    widget.Spacer(length = 10),
 ]
+
+bdn = backlight_device_name()
+if bdn:
+    widgets.append(
+        widget.Backlight(
+            backlight_name = bdn
+        )
+    )
 
 if len(os.listdir("/sys/class/power_supply")) > 0:
     widgets.append(

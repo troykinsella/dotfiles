@@ -245,8 +245,10 @@ window-manager: python fonts
     "libpangocairo-1.0-0#debian" \
     nitrogen \
     picom \
-    "python3-xcffib#debian" \
+    "python-dbus-next#arch" \
     "python3-cairocffi#debian" \
+    "python3-dbus-next#debian" \
+    "python3-xcffib#debian" \
     python3-psutil \
     rofi \
     "qtile#arch"

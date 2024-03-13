@@ -48,9 +48,9 @@ add_path $HOME/.local/bin
 
 # Colours
 
-if status --is-interactive
-  eval sh $HOME/.config/fish/scripts/base16-twilight.sh
-end
+#if status --is-interactive
+#  eval sh $HOME/.config/fish/scripts/base16-twilight.sh
+#end
 
 # Docker
 

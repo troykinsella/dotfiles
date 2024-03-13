@@ -9,14 +9,14 @@
     prompt-padding:              4px;
     alternate-normal-background: #1c1f24;
     alternate-normal-foreground: @text-color;
-    selected-normal-background:  #ae3f3e;
+    selected-normal-background:  #8f9d6a;
     selected-normal-foreground:  #ffffff;
     spacing:                     3;
 }
 
 #window {
-    border:  2;
-    padding: 5;
+    border:  0;
+    padding: 20;
 }
 
 #mainbox {
@@ -25,17 +25,17 @@
 }
 
 #message {
-    border:       1px dash 0px 0px ;
-    padding:      1px ;
+    border:  1px dash 0px 0px;
+    padding: 1px;
 }
 
 #listview {
     fixed-height: 0;
-    border:       2px solid 0px 0px ;
+    border:       2px solid 0px 0px;
     border-color: #1c1f24;
     spacing:      2px ;
     scrollbar:    true;
-    padding:      2px 0px 0px ;
+    padding:      20px 0px 0px 0px;
 }
 
 #element {
@@ -70,12 +70,12 @@
 }
 
 #inputbar {
-    spacing:    0;
-    padding:    1px ;
+    spacing: 0;
+    padding: 1px;
 }
 
 #case-indicator {
-    spacing:    0;
+    spacing: 0;
 }
 
 #entry {
@@ -85,11 +85,9 @@
 }
 
 #prompt {
-    padding:          @prompt-padding;
-    background-color: @prompt-background;
-    text-color:       @prompt-foreground;
-    font:             @prompt-font;
-    border-radius:    2px;
+    padding: @prompt-padding;
+    font:    @prompt-font;
+    text-color: #51afef;
 }
 
 element-text {

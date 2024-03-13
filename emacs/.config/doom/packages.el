@@ -50,3 +50,4 @@
 ;; (unpin! t)
 
 (package! just-mode)
+(package! rainbow-mode)

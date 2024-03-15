@@ -139,6 +139,7 @@ rust:
       ;;
   esac
 
+  ~/.cargo/bin/rustup default stable
   ~/.cargo/bin/rustup update stable
 
   rustup component add rust-src
@@ -177,6 +178,7 @@ workstation-essential:
   ./install_package \
     "base-devel#arch" \
     "build-essential#debian" \
+    "discord#arch" \
     "libpulse#arch" \
     net-tools \
     "openssh-server#debian" \
@@ -239,7 +241,7 @@ asdf:
 window-manager: python fonts
   #!/usr/bin/env bash
   ./install_package \
-    awesome \
+    "arandr#arch" \
     "gnome-themes-extra#arch" \
     "greybird-gtk-theme#debian" \
     "libpangocairo-1.0-0#debian" \
@@ -249,20 +251,24 @@ window-manager: python fonts
     "python3-cairocffi#debian" \
     "python3-dbus-next#debian" \
     "python3-xcffib#debian" \
-    python3-psutil \
+    "python-psutil#arch" \
+    "python3-psutil#debian" \
     rofi \
     "qtile#arch"
 
   case "{{distro}}" in
     debian|ubuntu)
       pipx install --include-deps qtile
+      # TODO: qtile-extras
       ;;
+    arch)
+      yay -S --needed qtile-extras
   esac
 
-  stow awesome
   stow gtk
   stow picom
   stow qtile
+  stow rofi
 
 
 fonts:

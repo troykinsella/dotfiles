@@ -87,3 +87,5 @@
 (setq rust-format-on-save t)
 (add-hook 'rust-mode-hook
           (lambda () (prettify-symbols-mode)))
+
+(setq doom-font (font-spec :family "SauceCode Pro Nerd Font" :size 12.0))

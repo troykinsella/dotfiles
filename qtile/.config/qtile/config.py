@@ -30,11 +30,11 @@ def distro_icon():
 
 
 def htop():
-    qtile.cmd_spawn(terminal + ' -e htop')
+    qtile.spawn(terminal + ' -e htop')
 
 
 def search():
-    qtile.cmd_spawn("rofi -show drun")
+    qtile.spawn("rofi -show drun")
 
 
 def backlight_device_name():
@@ -42,10 +42,19 @@ def backlight_device_name():
 
 
 def wifi_device_name():
-    dev_dir = glob.glob('/sys/class/ieee80211/*/device/net')
+    dev_dir = glob.glob("/sys/class/ieee80211/*/device/net")
     if len(dev_dir) == 0:
         return None
     next(iter(os.listdir(dev_dir[0])), None)
+
+
+def eth_device_name():
+    devs = os.listdir("/sys/class/net")
+    devs = list(filter(lambda i: i != "lo", devs))
+    if len(devs) == 0:
+        return None
+    next(iter(devs), None)
+
 
 ########
 # Keys #
@@ -168,8 +177,8 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="SauceCodePro Nerd Font",
-    fontsize=12,
+    font="SauceCodePro Nerd Font Bold",
+    fontsize=16,
     padding=3,
 )
 
@@ -200,8 +209,8 @@ widgets = [
         foreground = colors[4],
         this_current_screen_border = colors[2],
         this_screen_border = colors[3],
-        other_current_screen_border = colors[4],
-        other_screen_border = colors[5],
+        #other_current_screen_border = colors[4],
+        #other_screen_border = colors[5],
         urgent_border = colors[7],
         rounded = True,
         disable_drag = True,
@@ -216,7 +225,7 @@ widgets = [
     widget.Spacer(length = bar.STRETCH),
     widget.Net(
         foreground = colors[5],
-        interface = "enp1s0", # TODO: <--
+        interface = eth_device_name(),
         format = "↓{down:5.0f}{down_suffix:<2} ↑{up:5.0f}{up_suffix:<2}",
         updateinterval = 1.0,
     ),
@@ -236,7 +245,7 @@ widgets = [
     widget.PulseVolume(
         fmt = ' {}',
         foreground = colors[7],
-        mouse_callbacks = {'Button3': lambda: qtile.cmd_spawn("pavucontrol")},
+        mouse_callbacks = {'Button3': lambda: qtile.spawn("pavucontrol")},
         update_interval = 0
     ),
     widget.Spacer(length = 10),
@@ -274,7 +283,7 @@ screens = [
     Screen(
         bottom=bar.Bar(
             widgets,
-            24,
+            30,
             border_width = 0,
             margin = [0, 5, 5, 5],
             background = colors[0],

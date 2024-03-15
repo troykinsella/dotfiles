@@ -152,13 +152,13 @@ for i in groups:
 # Layouts #
 ###########
 
-colors = colors.Doom2
+colors = colors.Base16Twilight
 
 layout_theme = {
     "border_width": 0,
     "margin": 5,
-    "border_focus": colors[8],
-    "border_normal": colors[0]
+    "border_focus": colors[4],
+    "border_normal": colors[2],
 }
 
 layouts = [
@@ -177,7 +177,8 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="SauceCodePro Nerd Font Bold",
+    font = "SauceCodePro Nerd Font Bold",
+    fontshadow = colors[0],
     fontsize=16,
     padding=3,
 )
@@ -187,39 +188,39 @@ widgets = [
     widget.Spacer(length = 10),
     widget.TextBox(
         text = distro_icon(),
+        foreground = colors[3],
         fontsize = 20,
-        padding = 8,
+        padding_x = 8,
         mouse_callbacks = {'Button1': lambda: search()}
     ),
     widget.Spacer(length = 10),
     widget.CurrentLayoutIcon(
-        foreground = colors[1],
-        padding = 4,
+        foreground = colors[4],
+        padding_x = 4,
         scale = 0.6
     ),
     widget.Spacer(length = 10),
     widget.GroupBox(
-        font="SauceCodePro Nerd Font Bold",
-        borderwidth = 3,
+        borderwidth = 0,
+        padding_x = 10,
+        margin_x = 4,
         highlight_method = "block",
-        active = colors[8],
-        block_highlight_text_color = colors[4],
-        highlight_color = colors[5],
-        inactive = colors[1],
         foreground = colors[4],
+        active = colors[6],
+        inactive = colors[2],
+        block_highlight_text_color = colors[4],
         this_current_screen_border = colors[2],
         this_screen_border = colors[3],
-        #other_current_screen_border = colors[4],
-        #other_screen_border = colors[5],
-        urgent_border = colors[7],
+        other_current_screen_border = colors[4],
+        other_screen_border = colors[0],
+        urgent_border = colors[3],
         rounded = True,
         disable_drag = True,
     ),
     widget.Spacer(length = 10),
     widget.WindowName(
-        font = "SauceCodePro Nerd Font Bold",
         format = "{name}",
-        foreground = colors[6],
+        foreground = colors[1],
         max_chars = 100
     ),
     widget.Spacer(length = bar.STRETCH),
@@ -253,7 +254,10 @@ widgets = [
     # widget.StatusNotifier(),
     widget.Systray(),
     widget.Spacer(length = 10),
-    widget.Clock(format=" %I:%M %p"),
+    widget.Clock(
+        format=" %I:%M %p",
+        foreground = colors[1],
+    ),
     widget.Spacer(length = 10),
 ]
 

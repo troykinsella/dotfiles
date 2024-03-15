@@ -17,7 +17,7 @@ success_symbol = "[↪](bold green)"
 error_symbol = "[✗](bold red)"
 
 [directory]
-read_only = " "
+read_only = " "
 truncation_length = 10
 truncate_to_repo = true # truncates directory to root folder if in github repo
 style = "bold italic blue"
@@ -46,3 +46,6 @@ cherry_pick = "cherry"
 bisect = "bisect"
 am = "am"
 am_or_rebase = "am/rebase"
+
+[package]
+disabled = true

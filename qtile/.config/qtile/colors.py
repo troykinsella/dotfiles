@@ -2,18 +2,17 @@
 # Then, you can use RGBA color codes to add transparency to the colors below.
 # For ex: colors = [["#282c34ee", "#282c34dd"], ...
 
-Doom2 = [
-    ["#282c34", "#282c34"], # bg
+Base16Twilight = [
+    ["#201d1d", "#201d1d"], # bg
     ["#bbc2cf", "#bbc2cf"], # fg
-    ["#1c1f24", "#1c1f24"], # color01
+    ["#3b4252", "#3b4252"], # color01
     ["#cf6a4c", "#cf6a4c"], # color02
     ["#8f9d6a", "#8f9d6a"], # color03
-    ["#da8548", "#da8548"], # color04
-    ["#51afef", "#51afef"], # color05
-    ["#c678dd", "#c678dd"], # color06
-    ["#46d9ff", "#46d9ff"]  # color15
+    ["#f9ee98", "#f9ee98"], # color04
+    ["#7587a6", "#7587a6"], # color05
+    ["#9b859d", "#9b859d"], # color06
+    ["#afc4db", "#afc4db"]  # color15
 ]
-
 
 DoomOne = [
     ["#282c34", "#282c34"], # bg

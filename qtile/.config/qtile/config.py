@@ -164,16 +164,16 @@ layout_theme = {
 layouts = [
     layout.Columns(**layout_theme),
     layout.Max(border_width = 0, margin = [0, 0, 5, 0]),
-    # layout.Stack(num_stacks=2),
-    # layout.Bsp(),
-    # layout.Matrix(),
+    #layout.Stack(num_stacks=2),
+    #layout.Bsp(**layout_theme),
+    #layout.Matrix(**layout_theme),
     layout.MonadTall(**layout_theme),
-    # layout.MonadWide(),
-    # layout.RatioTile(),
-    # layout.Tile(),
-    # layout.TreeTab(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
+    layout.MonadWide(**layout_theme),
+    #layout.RatioTile(**layout_theme),
+    #layout.Tile(**layout_theme),
+    #layout.TreeTab(**layout_theme),
+    #layout.VerticalTile(**layout_theme),
+    #layout.Zoomy(**layout_theme),
 ]
 
 widget_defaults = dict(
@@ -274,7 +274,7 @@ if len(os.listdir("/sys/class/power_supply")) > 0:
         widget.Battery(
             low_percentage=0.3,
             low_background="#0ee9af",
-            background=colors[4],
+            #background=colors[4],
             low_foreground=colors[0],
             update_interval=1,
             charge_char='',

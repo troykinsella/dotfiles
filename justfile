@@ -15,7 +15,7 @@ yay: git
       git clone https://aur.archlinux.org/yay.git .yay_tmp
       (
         cd .yay_tmp
-        makepgk -si
+        makepkg -si
       )
       rm -rf .yay_tmp
     fi
@@ -49,6 +49,7 @@ essential: #package-cache-update
     iftop \
     iotop \
     jq \
+    "less#arch" \
     nethogs \
     ripgrep \
     unzip \

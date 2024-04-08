@@ -129,16 +129,15 @@ shell:
 
 rust:
   #!/usr/bin/env bash
-  ./install_package "rustup#arch"
-
   case "{{distro}}" in
     debian|ubuntu)
       sudo apt-get install -y libssl-dev
-      if [[ ! -x ~/.cargo/bin/rustup ]]; then
-        curl -fSsL https://sh.rustup.rs | sh
-      fi
       ;;
   esac
+
+  if [[ ! -x ~/.cargo/bin/rustup ]]; then
+    curl -fSsL https://sh.rustup.rs | sh
+  fi
 
   ~/.cargo/bin/rustup default stable
   ~/.cargo/bin/rustup update stable

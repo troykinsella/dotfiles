@@ -129,16 +129,15 @@ shell:
 
 rust:
   #!/usr/bin/env bash
-  ./install_package "rustup#arch"
-
   case "{{distro}}" in
     debian|ubuntu)
       sudo apt-get install -y libssl-dev
-      if [[ ! -x ~/.cargo/bin/rustup ]]; then
-        curl -fSsL https://sh.rustup.rs | sh
-      fi
       ;;
   esac
+
+  if [[ ! -x ~/.cargo/bin/rustup ]]; then
+    curl -fSsL https://sh.rustup.rs | sh
+  fi
 
   ~/.cargo/bin/rustup default stable
   ~/.cargo/bin/rustup update stable
@@ -194,6 +193,13 @@ workstation-essential:
     yay -S --needed python-pulsectl-asyncio
   fi
 
+
+podman:
+  ./install_package \
+    podman \
+    podman-compose
+
+
 workstation-applications:
   #!/usr/bin/env bash
   ./install_package \
@@ -237,6 +243,11 @@ asdf:
       git checkout "v${ASDF_VERSION}"
     )
   fi
+
+
+terraform: asdf
+  ~/.asdf/bin/asdf plugin-add terraform https://github.com/asdf-community/asdf-hashicorp.git
+  ~/.asdf/bin/asdf install terraform latest
 
 
 window-manager: python fonts
@@ -293,4 +304,4 @@ vault: git
 basic: essential home-dirs emacs git shell yay
 
 
-workstation: basic workstation-essential window-manager terminal ansible asdf workstation-applications vault
+workstation: basic workstation-essential window-manager terminal ansible asdf workstation-applications vault podman terraform

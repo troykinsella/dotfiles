@@ -55,6 +55,7 @@ end
 # Docker
 
 alias docker=podman
+alias docker-compose=podman-compose
 
 # Tmux
 

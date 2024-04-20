@@ -160,13 +160,13 @@ terminal: fonts rust python
     "libxcb-xfixes0-dev#debian" \
     "libxkbcommon-dev#debian" \
     "alacrity#arch" \
-    "eza#arch"
+    "lsd#arch"
 
   case "{{distro}}" in
     debian|ubuntu)
       cargo install \
         alacritty \
-        eza
+        lsd
       ;;
   esac
 

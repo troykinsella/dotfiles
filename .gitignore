@@ -1,5 +1,4 @@
 .idea
-fish/.config/fish/completions
 fish/.config/fish/fish_history
 fish/.config/fish/fishd.*
 fish/.config/fish/fishfile

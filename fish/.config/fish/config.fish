@@ -64,15 +64,7 @@ alias tmux "tmux -2"
 # Aliases
 
 alias e='emacsclient -t -a emacs'
-
-if which eza > /dev/null
-  alias ls='eza --color=always --group-directories-first'
-  alias la='eza -a --color=always --group-directories-first'
-  alias ll='eza -l --color=always --group-directories-first'
-  alias lt='eza -aT --color=always --group-directories-first'
-  alias l.='eza -a | egrep "^\."'
-end
-
+alias ls="lsd"
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'

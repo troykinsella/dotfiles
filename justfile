@@ -38,7 +38,7 @@ package-cache-update:
   esac
 
 
-essential: #package-cache-update
+essential: package-cache-update
   ./install_package \
     btop \
     curl \
@@ -213,11 +213,11 @@ workstation-applications:
     obs-studio \
     peek \
     remmina \
-    thunderbird \
     vlc
 
   if [[ "{{distro}}" == arch ]]; then
-    yay -S --needed brave-bin
+    yay -S --needed betterbird-bin
+    yay -s --needed librewolf-bin
   fi
 
 
@@ -245,8 +245,11 @@ asdf:
   fi
 
 
-terraform: asdf
+hashicorp-tools: asdf
   ~/.asdf/bin/asdf plugin-add terraform https://github.com/asdf-community/asdf-hashicorp.git
+
+
+terraform: hashicorp-tools
   ~/.asdf/bin/asdf install terraform latest
 
 
@@ -281,6 +284,18 @@ window-manager: python fonts
   stow picom
   stow qtile
   stow rofi
+
+
+wacom-tablet:
+  #!/usr/bin/env bash
+  ./install_package \
+    "xserver-xorg-input-wacom#debian"
+
+  if [[ "{{distro}}" == arch ]]; then
+    yay -S --needed xf86-input-wacom
+    yay -S --needed xorg-xinput
+    yay -S --needed wacom-utility
+  fi
 
 
 fonts:

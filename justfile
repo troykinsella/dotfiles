@@ -179,6 +179,7 @@ workstation-essential:
     "base-devel#arch" \
     "build-essential#debian" \
     "discord#arch" \
+    libreoffice \
     "libpulse#arch" \
     net-tools \
     "openssh-server#debian" \
@@ -189,9 +190,21 @@ workstation-essential:
     whois \
     xclip
 
+
   if [[ "{{distro}}" == arch ]]; then
     yay -S --needed python-pulsectl-asyncio
   fi
+
+
+flatpak:
+  ./install_package \
+    flatpak
+
+  flatpak remote-add \
+    --if-not-exists \
+    flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+  flatpak install flathub com.github.tchx84.Flatseal
 
 
 podman:

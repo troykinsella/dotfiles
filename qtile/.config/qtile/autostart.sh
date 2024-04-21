@@ -8,6 +8,11 @@ dunst &
 nm-applet &
 flameshot &
 keepassxc &
+discord &
+
+if [[ -x /usr/lib/pentablet/PenTablet.sh ]]; then
+  /usr/lib/pentablet/PenTablet.sh &
+fi
 
 sleep 1
 nitrogen --restore

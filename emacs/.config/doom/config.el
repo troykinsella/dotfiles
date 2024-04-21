@@ -89,3 +89,7 @@
           (lambda () (prettify-symbols-mode)))
 
 (setq doom-font (font-spec :family "SauceCode Pro Nerd Font" :size 12.0))
+
+;; Fix macos insanity
+(global-set-key (kbd "<home>") 'move-beginning-of-line)
+(global-set-key (kbd "<end>") 'move-end-of-line)

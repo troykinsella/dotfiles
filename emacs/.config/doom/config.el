@@ -83,6 +83,7 @@
 ;;
 ;(add-hook 'window-setup-hook #'toggle-frame-maximized)
 (add-hook 'emacs-startup-hook 'treemacs)
+(windmove-default-keybindings)
 
 (setq rust-format-on-save t)
 (add-hook 'rust-mode-hook

@@ -22,14 +22,14 @@ yay: git
   fi
 
 
-package-cache-update:
+package-cache-update: yay
   #!/usr/bin/env bash
   case "{{distro}}" in
     debian|ubuntu)
       sudo apt-get update -y
       ;;
     arch)
-      sudo pacman -Syy
+      yay -Syy
       ;;
     *)
       echo "unsupported distro: {{distro}}" >&2
@@ -38,7 +38,7 @@ package-cache-update:
   esac
 
 
-essential: package-cache-update
+essential: yay package-cache-update
   ./install_package \
     btop \
     curl \
@@ -185,15 +185,11 @@ workstation-essential:
     "openssh-server#debian" \
     pavucontrol \
     pkg-config \
+    "python-pulsectl-asyncio#arch" \
     "snapd#debian" \
     "software-properties-common#debian" \
     whois \
     xclip
-
-
-  if [[ "{{distro}}" == arch ]]; then
-    yay -S --needed python-pulsectl-asyncio
-  fi
 
 
 flatpak:
@@ -209,6 +205,7 @@ flatpak:
 
 podman:
   ./install_package \
+    fuse-overlayfs \
     podman \
     podman-compose
 
@@ -217,21 +214,20 @@ workstation-applications:
   #!/usr/bin/env bash
   ./install_package \
     audacity \
+    "betterbird-bin#arch" \
     kdenlive \
     gimp \
     keepassxc \
     krita \
     inkscape \
+    "librewolf-bin#arch" \
     lmms \
     obs-studio \
     peek \
     remmina \
     vlc
 
-  if [[ "{{distro}}" == arch ]]; then
-    yay -S --needed betterbird-bin
-    yay -s --needed librewolf-bin
-  fi
+  xdg-settings set default-web-browser librewolf.desktop
 
 
 python:
@@ -282,15 +278,14 @@ window-manager: python fonts
     "python-psutil#arch" \
     "python3-psutil#debian" \
     rofi \
-    "qtile#arch"
+    "qtile#arch" \
+    "qtile-extras#arch"
 
   case "{{distro}}" in
     debian|ubuntu)
       pipx install --include-deps qtile
       # TODO: qtile-extras
       ;;
-    arch)
-      yay -S --needed qtile-extras
   esac
 
   stow gtk
@@ -302,13 +297,10 @@ window-manager: python fonts
 wacom-tablet:
   #!/usr/bin/env bash
   ./install_package \
-    "xserver-xorg-input-wacom#debian"
-
-  if [[ "{{distro}}" == arch ]]; then
-    yay -S --needed xf86-input-wacom
-    yay -S --needed xorg-xinput
-    yay -S --needed wacom-utility
-  fi
+    "xserver-xorg-input-wacom#debian" \
+    "xf86-input-wacom#arch" \
+    "xorg-xinput#arch" \
+    "wacom-utility#arch"
 
 
 fonts:
@@ -329,7 +321,7 @@ vault: git
   fi
 
 
-basic: essential home-dirs emacs git shell yay
+basic: essential home-dirs emacs git shell
 
 
 workstation: basic workstation-essential window-manager terminal ansible asdf workstation-applications vault podman terraform

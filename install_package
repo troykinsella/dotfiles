@@ -27,7 +27,7 @@ install_package() {
       sudo apt-get install -y "$package"
       ;;
     arch)
-      sudo pacman -S --needed "$package"
+      yay -S --needed "$package"
       ;;
     *)
       echo "Unsupported distro: ${distro}" >&2

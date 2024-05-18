@@ -40,6 +40,7 @@ ln -sf ~/.asdf/completions/asdf.fish ~/.config/fish/completions
 # Rust
 
 add_path $HOME/.cargo/bin
+source_if_exists $HOME/.cargo/env.fish
 
 # User bin
 

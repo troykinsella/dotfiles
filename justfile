@@ -67,7 +67,9 @@ home-dirs:
 
 
 git:
-  ./install_package git
+  ./install_package \
+    git \
+    git-lfs
   stow git
 
 

@@ -53,11 +53,6 @@ if status --is-interactive
   eval sh $HOME/.config/fish/scripts/base16-twilight.sh
 end
 
-# Docker
-
-alias docker=podman
-alias docker-compose=podman-compose
-
 # Tmux
 
 alias tmux "tmux -2"

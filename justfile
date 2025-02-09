@@ -6,72 +6,7 @@ ASDF_VERSION := "0.14.0"
 
 distro := `grep ^ID= /etc/os-release | cut -d= -f2`
 
-
-yay: git
-  #!/usr/bin/env bash
-  if [[ "{{distro}}" == "arch" ]]; then
-    if ! which yay > /dev/null; then
-      sudo pacman -S --needed base-devel
-      git clone https://aur.archlinux.org/yay.git .yay_tmp
-      (
-        cd .yay_tmp
-        makepkg -si
-      )
-      rm -rf .yay_tmp
-    fi
-  fi
-
-
-package-cache-update: yay
-  #!/usr/bin/env bash
-  case "{{distro}}" in
-    debian|ubuntu)
-      sudo apt-get update -y
-      ;;
-    arch)
-      yay -Syy
-      ;;
-    *)
-      echo "unsupported distro: {{distro}}" >&2
-      exit 1
-      ;;
-  esac
-
-
-essential: yay package-cache-update
-  ./install_package \
-    btop \
-    curl \
-    direnv \
-    "fd-find#debian" \
-    "fd#arch" \
-    htop \
-    iftop \
-    iotop \
-    jq \
-    "less#arch" \
-    nethogs \
-    ripgrep \
-    unzip \
-    stow
-
-
-home-dirs:
-  mkdir -p ~/bin
-  mkdir -p ~/dl
-  mkdir -p ~/documents
-  mkdir -p ~/pictures
-  mkdir -p ~/tmp
-  mkdir -p ~/videos
-  mkdir -p ~/wallpapers
-
-
-git:
-  ./install_package \
-    git \
-    git-lfs
-  stow git
-
+basic: essential home-dirs emacs git shell
 
 emacs:
   #!/usr/bin/env bash
@@ -99,6 +34,79 @@ emacs:
   fi
 
   ~/.config/emacs/bin/doom sync
+
+
+essential: yay package-cache-update
+  ./install_package \
+    btop \
+    "bind-tools#arch" \
+    curl \
+    direnv \
+    "dosfstools#arch" \
+    "fd-find#debian" \
+    "fd#arch" \
+    htop \
+    iftop \
+    iotop \
+    jq \
+    "less#arch" \
+    "netcat#arch" \
+    nethogs \
+    "ntfsprogs#arch" \
+    "pv#arch" \
+    ripgrep \
+    "rsync#arch" \
+    "tree#arch" \
+    unzip \
+    stow
+
+
+fonts:
+  mkdir -p ~/.local/share/fonts
+  cp fonts/**/*.ttf ~/.local/share/fonts
+  fc-cache -f -v
+
+
+git:
+  ./install_package \
+    git \
+    git-lfs
+  stow git
+
+
+golang:
+  ./install_package \
+    "go#arch" \
+    "gopls#arch"
+
+
+home-dirs:
+  mkdir -p ~/bin
+  mkdir -p ~/dl
+  mkdir -p ~/documents
+  mkdir -p ~/pictures
+  mkdir -p ~/tmp
+  mkdir -p ~/videos
+  mkdir -p ~/wallpapers
+
+
+package-cache-update: yay
+  #!/usr/bin/env bash
+  case "{{distro}}" in
+    debian|ubuntu)
+      sudo apt-get update -y
+      ;;
+    arch|endeavouros)
+      yay -Syy
+      ;;
+    *)
+      echo "unsupported distro: {{distro}}" >&2
+      exit 1
+      ;;
+  esac
+
+
+programming-languages: golang rust
 
 
 shell:
@@ -152,7 +160,7 @@ rust:
   ~/.cargo/bin/cargo install cargo-edit || true
 
 
-terminal: fonts rust python
+terminal: fonts
   #!/usr/bin/env bash
   ./install_package \
     cmake \
@@ -161,32 +169,33 @@ terminal: fonts rust python
     "libfontconfig1-dev#debian" \
     "libxcb-xfixes0-dev#debian" \
     "libxkbcommon-dev#debian" \
-    "alacrity#arch" \
+    "ghostty#arch" \
     "lsd#arch"
 
   case "{{distro}}" in
     debian|ubuntu)
       cargo install \
-        alacritty \
         lsd
       ;;
   esac
 
-  stow alacritty
 
-
-workstation-essential:
+workstation-essential: programming-languages
   #!/usr/bin/env bash
   ./install_package \
+    "all-repository-fonts#arch" \
     "base-devel#arch" \
     "build-essential#debian" \
+    "calc#arch" \
     "discord#arch" \
+    "etckeeper#arch" \
     libreoffice \
     "libpulse#arch" \
     net-tools \
     "openssh-server#debian" \
     pavucontrol \
     pkg-config \
+    "postgresql-libs#arch" \
     "python-pulsectl-asyncio#arch" \
     "snapd#debian" \
     "software-properties-common#debian" \
@@ -217,19 +226,22 @@ workstation-applications:
   ./install_package \
     audacity \
     "betterbird-bin#arch" \
+    "chromium-browser#arch" \
     kdenlive \
     gimp \
     keepassxc \
     krita \
     inkscape \
-    "librewolf-bin#arch" \
     lmms \
     obs-studio \
     peek \
+    "pureref#arch" \
     remmina \
-    vlc
+    "transmission-gtk#arch" \
+    vlc \
+    "vorta#arch"
 
-  xdg-settings set default-web-browser librewolf.desktop
+  xdg-settings set default-web-browser chromium.desktop
 
 
 python:
@@ -264,53 +276,6 @@ terraform: hashicorp-tools
   ~/.asdf/bin/asdf install terraform latest
 
 
-window-manager: python fonts
-  #!/usr/bin/env bash
-  ./install_package \
-    "arandr#arch" \
-    "gnome-themes-extra#arch" \
-    "greybird-gtk-theme#debian" \
-    "libpangocairo-1.0-0#debian" \
-    nitrogen \
-    picom \
-    "python-dbus-next#arch" \
-    "python3-cairocffi#debian" \
-    "python3-dbus-next#debian" \
-    "python3-xcffib#debian" \
-    "python-psutil#arch" \
-    "python3-psutil#debian" \
-    rofi \
-    "qtile#arch" \
-    "qtile-extras#arch"
-
-  case "{{distro}}" in
-    debian|ubuntu)
-      pipx install --include-deps qtile
-      # TODO: qtile-extras
-      ;;
-  esac
-
-  stow gtk
-  stow picom
-  stow qtile
-  stow rofi
-
-
-wacom-tablet:
-  #!/usr/bin/env bash
-  ./install_package \
-    "xserver-xorg-input-wacom#debian" \
-    "xf86-input-wacom#arch" \
-    "xorg-xinput#arch" \
-    "wacom-utility#arch"
-
-
-fonts:
-  mkdir -p ~/.local/share/fonts
-  cp fonts/**/*.ttf ~/.local/share/fonts
-  fc-cache -f -v
-
-
 vault: git
   #!/usr/bin/env bash
   if ! [[ -d ~/.vault/.git ]]; then
@@ -323,7 +288,37 @@ vault: git
   fi
 
 
-basic: essential home-dirs emacs git shell
+window-manager: python fonts
+  #!/usr/bin/env bash
+  ./install_package \
+    nitrogen \
+    rofi 
+
+  stow rofi
 
 
-workstation: basic workstation-essential window-manager terminal ansible asdf workstation-applications vault podman terraform
+wacom-tablet:
+  #!/usr/bin/env bash
+  ./install_package \
+    "xserver-xorg-input-wacom#debian" \
+    "xf86-input-wacom#arch" \
+    "xorg-xinput#arch" \
+    "wacom-utility#arch"
+
+
+workstation: workstation-essential window-manager terminal ansible asdf workstation-applications vault podman terraform
+
+
+yay:
+  #!/usr/bin/env bash
+  if [[ "{{distro}}" == "arch" ]]; then
+    if ! which yay > /dev/null; then
+      sudo pacman -S --needed base-devel
+      git clone https://aur.archlinux.org/yay.git .yay_tmp
+      (
+        cd .yay_tmp
+        makepkg -si
+      )
+      rm -rf .yay_tmp
+    fi
+  fi

@@ -34,4 +34,4 @@
 	auto = false
 	strategy = incremental
 [credential]
-	helper = store
+	helper = cache

@@ -231,7 +231,9 @@ workstation-applications:
     gimp \
     keepassxc \
     krita \
+    "krita-plugin-gmic#arch" \
     inkscape \
+    "librewolf-bin#arch" \
     lmms \
     obs-studio \
     peek \
@@ -241,7 +243,7 @@ workstation-applications:
     vlc \
     "vorta#arch"
 
-  xdg-settings set default-web-browser chromium.desktop
+  xdg-settings set default-web-browser custom-WebBrowser.desktop
 
 
 python:
